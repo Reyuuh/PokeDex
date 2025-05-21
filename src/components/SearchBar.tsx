@@ -1,4 +1,5 @@
 import React from "react";
+import '../styles/SearchBar.scss'
 
 interface SearchBarProps {
     query: string;
@@ -8,13 +9,15 @@ interface SearchBarProps {
 export const SearchBar: React.FC<SearchBarProps> = ({query, onSearchChange}) => {
 
 return(
+    <div className="searchbar-container" >
 <input 
+className="search-bar"
 type="text" 
-placeholder="Search Pokémon..."
+placeholder="Search Pokémon"
 value={query}
 onChange={onSearchChange}
 />
-
+</div>
  );
 
 };

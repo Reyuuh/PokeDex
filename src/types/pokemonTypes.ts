@@ -1,20 +1,40 @@
 export interface Pokemon {
-    id:number
-    name: string;
-    url: string;
-    sprites: {
-        front_default: string; // Regular sprite
-        versions: {
-            'generation-v': {
-                'black-white': {
-                    animated: {
-                        front_default: string; // GIF sprite
-                    };
-                };
-            };
+  id: number;
+  name: string;
+  url: string;
+  sprites: {
+    front_default: string | null; // Static default sprite
+    versions: {
+      "generation-v"?: {
+        "black-white"?: {
+          animated?: {
+            front_default: string | null; // Animated sprite for Gen V
+          };
         };
+      };
+      "generation-vi"?: {
+        "x-y"?: {
+          animated?: {
+            front_default: string | null; // Animated sprite for Gen VI
+          };
+        };
+      };
+      "generation-vii"?: {
+        "ultra-sun-ultra-moon"?: {
+          animated?: {
+            front_default: string | null; // Animated sprite for Gen VII
+          };
+        };
+      };
+      "generation-viii"?: {
+        animated?: {
+          front_default: string | null; // Animated sprite for Gen VIII
+        };
+      };
+      // Add other generations/versions here as needed
     };
-    types: { type: { name: string } }[];
+  };
+  types: { type: { name: string } }[];
 }
 
 export interface PokemonDetails {

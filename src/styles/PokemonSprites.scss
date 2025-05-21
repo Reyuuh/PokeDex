@@ -1,0 +1,18 @@
+
+
+
+.sprite-link {
+  color: #000000;          // 🎨 Your custom color (red like Pokémon logo, adjust as needed)
+  text-decoration: none;  // 🚫 Removes underline
+  font-weight: bold;      // Optional: make the name stand out
+
+  &:hover {
+    color: #222;            // 🖱️ Color when hovering
+    text-decoration: underline; // Optional: underline on hover if you want feedback
+  }
+}
+
+
+.sprite-themselves {
+    margin-top: 1rem;
+}

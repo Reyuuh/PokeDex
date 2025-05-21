@@ -53,12 +53,13 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
     searchResults: [],
   });
 
+  const ITEMS_PER_PAGE = 22;
   // Fetch Pokémon Data
-  const fetchPokemons = useCallback(async (page: number) => {
+  const fetchPokemons = useCallback(async (page: number, itemsPerPage:number) => {
     if (state.pokemonsByPage[page]) return; // ✅ Avoid re-fetching existing pages
 
     try {
-      const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${(page - 1) * 20}`);
+      const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${itemsPerPage}&offset=${(page - 1) * itemsPerPage}`);
       const data = await res.json();
 
       dispatch({ type: "SET_TOTAL_COUNT", payload: data.count });
@@ -78,8 +79,9 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
 
   // Fetch data whenever the page changes
   useEffect(() => {
-    fetchPokemons(state.currentPage);
-  }, [state.currentPage, fetchPokemons]);
+  fetchPokemons(state.currentPage, ITEMS_PER_PAGE);
+}, [state.currentPage, fetchPokemons]);
+
 
   return (
     <PokemonContext.Provider value={{ state, dispatch }}>

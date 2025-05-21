@@ -4,11 +4,15 @@ import { usePokemonSearch } from "../hooks/usePokemonSearch";
 import { SearchBar } from "./SearchBar";
 import { PokemonItem } from "./PokemonItem";
 import { Pagination } from "./Pagination";
+import '../styles/Pokemons.scss';
+import '../styles/PokemonSprites.scss'
+
+
 
 export const PokemonList: React.FC = () => {
   const { state, dispatch } = usePokemon();
   const { searchPokemon } = usePokemonSearch();
-  const ITEMS_PER_PAGE = 20;
+  const ITEMS_PER_PAGE = 5;
 
   // Handle search input change
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,18 +31,26 @@ export const PokemonList: React.FC = () => {
   const totalPages = Math.ceil(state.totalCount / ITEMS_PER_PAGE);
 
   return (
-    <div>
-      <h1>Pokémon List</h1>
+    <div className="pokemon-container">
+      <h1 className="pokemon-title">PokéDex</h1>
       <SearchBar query={state.searchQuery} onSearchChange={handleSearchChange} />
-      <ul>
+      <ul className="pokemon-creatures">
         {pokemonsToDisplay.length > 0 ? (
           pokemonsToDisplay.map((pokemon) => <PokemonItem key={pokemon.id} pokemon={pokemon} />)
         ) : (
-          <p>No Pokémon found</p>
+          <p className="loading">Loading...</p>
         )}
       </ul>
-      {!state.searchQuery && <Pagination currentPage={state.currentPage} totalPages={totalPages} onPageChange={(page) => dispatch({ type: "SET_PAGE", payload: page })} />}
+      {!state.searchQuery && <div className="pagination-wrapper">
+      <Pagination
+        currentPage={state.currentPage}
+        totalPages={totalPages}
+        onPageChange={(page) => dispatch({ type: "SET_PAGE", payload: page })}
+      />
+    </div>}
     </div>
+
+    
   );
 };
 

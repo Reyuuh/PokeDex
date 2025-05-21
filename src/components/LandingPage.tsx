@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import '../styles/LandingPage.scss'
 
 export const LandingPage: React.FC = () => {
 
     return(
-    <div>
-        <h1>Pokédex</h1>
-       <Link to="/pokemons">See Pokémon List</Link>
+    <div className="landingpage-container" >
+        <h1 className="welcome" >Welcome to my Pokédex</h1>
+       <Link className="pokedex-link" to="/pokemons">Continue</Link>
     </div>
 
     );

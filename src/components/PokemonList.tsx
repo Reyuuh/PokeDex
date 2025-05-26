@@ -34,10 +34,12 @@ export const PokemonList: React.FC = () => {
   return (
     <div className="pokemon-container">
       <div className="title-container" >
-        
+      <Link className="pokedex-link" to="/">
       <h1 className="pokemon-title">PokéDex</h1>
+      </Link>
       </div>
-<Link className="pokedex-link" to="/">Home</Link>
+
+<Link className="pokedex-home-link" to="/">Home</Link>
 
       <SearchBar query={state.searchQuery} onSearchChange={handleSearchChange} />
       <ul className="pokemon-creatures">

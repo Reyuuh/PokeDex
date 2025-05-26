@@ -15,22 +15,22 @@ export const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon }) => {
   || pokemon.sprites.versions["generation-vii"]?.["ultra-sun-ultra-moon"]?.animated?.front_default
   || pokemon.sprites.front_default;
 
-    return (
-      
-      <div className="sprite-container" >
-        <li key={pokemon.id}>
-          <Link className="sprite-link" to={`/pokemon/${pokemon.id}`}>{pokemon.name}</Link>
-          <div className="sprite-themselves" >
-            {animatedSprite ? (
-              <img
-                src={animatedSprite}
-                alt={pokemon.name}
-              />
-            ) : (
-              <p>No sprite available</p>
-            )}
-          </div>
-        </li>
-      </div>
+    return(
+<li key={pokemon.id} className="sprite-item">
+   <Link className="sprite-link-full" to={`/pokemon/${pokemon.id}`}>
+      <div className="sprite-container">
+        <div className="sprite-name" >{pokemon.name}</div>
+                 <div className="sprite-themselves" >
+                  {animatedSprite ? (
+                   <img src={animatedSprite} 
+                   alt={pokemon.name} 
+                   />
+                  ):(
+                    <p>No sprite available</p>
+                  )}  
+                </div>
+             </div>
+         </Link>   
+      </li>
     );
 };

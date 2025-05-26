@@ -6,6 +6,7 @@ import { PokemonItem } from "./PokemonItem";
 import { Pagination } from "./Pagination";
 import '../styles/Pokemons.scss';
 import '../styles/PokemonSprites.scss'
+import { Link } from "react-router-dom";
 
 
 
@@ -32,7 +33,12 @@ export const PokemonList: React.FC = () => {
 
   return (
     <div className="pokemon-container">
+      <div className="title-container" >
+        
       <h1 className="pokemon-title">PokéDex</h1>
+      </div>
+<Link className="pokedex-link" to="/">Home</Link>
+
       <SearchBar query={state.searchQuery} onSearchChange={handleSearchChange} />
       <ul className="pokemon-creatures">
         {pokemonsToDisplay.length > 0 ? (

@@ -1,16 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 300;
+  font-style: normal;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url('/images/pokemon-bg.jpg'); // Optional: your background image
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+}
+
 .landingpage-container {
-    
-    margin-top: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7rem;
+  height: 100vh;
+  text-align: center;
 }
 
 .welcome {
-    font-size: 30px;
+  font-size: 30px;
 }
 
-.pokedex-link{
-    font-size: 25px;
+.pokedex-link {
+  font-size: 25px;
+  text-decoration: none;
+  color: black;
+  background: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.pokedex-link:hover{
+    text-decoration: underline;
+}
+
+/* 🔥 Animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  
+  }
+  to {
+    transform: translateX(0);
+    
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+   
+  }
+  to {
+    transform: translateX(0);
+    
+  }
+}
+
+.slide-in-right {
+  animation: slideInRight 1s ease-out forwards;
+}
+
+.slide-in-left {
+  animation: slideInLeft 1s ease-out forwards;
 }

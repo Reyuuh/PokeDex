@@ -3,13 +3,24 @@
     padding: 0;
 }
 
-.pokemon-title {
+.title-container{
+  display: flex;
+  justify-content: center;
     text-align: center;
     color: white;
     background-color: #1e93b9;
-   padding: 1rem;
-   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+   padding: 0;
+  font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
    
+}
+
+.pokedex-link{
+ display: flex;
+ justify-content: center;
+ padding: 1rem;
+    
 }
 
 .pokemon-creatures {

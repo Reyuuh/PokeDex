@@ -1,10 +1,12 @@
-.pagination-container{
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 2rem;
-}
 
+.pagination-container {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+}
 
 .pagination-wrapper {
   display: flex;
@@ -12,3 +14,34 @@ padding: 2rem;
   margin-top: 2rem;
 }
 
+.page-button {
+  padding: 1rem;
+  font-size: 1rem;
+  text-decoration: none;
+  background-color: #7081e4bb;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%; 
+  max-width: 200px;
+  text-align: center;
+}
+
+// Desktop/tablet overrides
+@media (min-width: 768px) {
+  .pagination-container {
+    flex-direction: row; 
+    padding: 2rem;
+    gap: 2rem;
+  }
+
+  .page-button {
+    width: auto; 
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+  }
+
+  .pagination-wrapper {
+    margin-top: 2rem;
+  }
+}

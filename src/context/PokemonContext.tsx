@@ -80,6 +80,8 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
   // Fetch data whenever the page changes
   useEffect(() => {
   fetchPokemons(state.currentPage, ITEMS_PER_PAGE);
+  dispatch({ type: "SET_TOTAL_COUNT", payload: 280 });
+
 }, [state.currentPage, fetchPokemons]);
 
 

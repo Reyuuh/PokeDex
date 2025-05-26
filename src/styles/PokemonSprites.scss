@@ -1,18 +1,28 @@
-
+.sprite-container {
+  position: relative; 
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
 
 
 .sprite-link {
-  color: #000000;          // 🎨 Your custom color (red like Pokémon logo, adjust as needed)
-  text-decoration: none;  // 🚫 Removes underline
-  font-weight: bold;      // Optional: make the name stand out
-
+  color: #000000;          
+  text-decoration: none;  
+  font-weight: bold;      
+font-weight: 150;
+font-size: 65%;
   &:hover {
-    color: #222;            // 🖱️ Color when hovering
-    text-decoration: underline; // Optional: underline on hover if you want feedback
+    color: #222;            
+    text-decoration: underline; 
   }
 }
 
 
+
 .sprite-themselves {
+    height: 60px;
     margin-top: 1rem;
+    gap: 10px;
 }

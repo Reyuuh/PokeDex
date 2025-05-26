@@ -6,22 +6,28 @@
 .title-container{
   display: flex;
   justify-content: center;
-    text-align: center;
-    color: white;
-    background-color: #1e93b9;
-   padding: 0;
+  text-align: center;
+  color: white;
+  background-color: #415efffa;
+  padding: 0;
   font-family: "Press Start 2P", system-ui;
   font-weight: 400;
   font-style: normal;
    
 }
 
+
+
 .pokedex-link{
  display: flex;
  justify-content: center;
  padding: 1rem;
  color: white;
-    
+ text-decoration: none;   
+}
+
+.pokedex-link:hover{
+  text-decoration: underline;
 }
 
 .pokedex-home-link {
@@ -29,6 +35,11 @@
  justify-content: center;
  padding: 1rem;
  color: #000000;
+ text-decoration: none;
+}
+
+.pokedex-home-link:hover {
+text-decoration: underline;
 }
 
 .pokemon-creatures {

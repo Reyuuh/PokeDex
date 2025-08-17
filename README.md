@@ -1,6 +1,7 @@
 # 🎮 Pokédex app
 
-!https://s3.ezgif.com/tmp/ezgif-3e1da96e3f268c.gif
+![Alt text]([path/to/your.gif](https://s3.ezgif.com/tmp/ezgif-3e1da96e3f268c.gif))
+
 
 ## 📘 Beskrivning
 En kort och tydlig beskrivning av vad projektet gör, varför du gjorde det och vilka funktioner det har.

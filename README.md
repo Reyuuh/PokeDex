@@ -34,5 +34,5 @@ Detta är en Pokédex byggd med React och TypeScript. Användaren kan söka efte
 - Förbättrat prestandan genom att optimera API-anrop (exempelvis caching av Pokémon-data).
 
 ## 🔗 Länkar
-- 💻 [Live-demo](https://dindemo.netlify.app)
+- 💻 [Live-demo](https://pokedex-git-master-intis-projects-4184abf2.vercel.app/)
 - 📂 [Repo](https://github.com/Reyuuh/PokeDex.git)

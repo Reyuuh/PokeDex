@@ -1,5 +1,5 @@
 # 🎮 Pokédex app
-
+![Alt text](https://s3.ezgif.com/tmp/ezgif-33154686830a9a.gif)
 ![Alt text](https://s3.ezgif.com/tmp/ezgif-3e1da96e3f268c.gif)
 
 

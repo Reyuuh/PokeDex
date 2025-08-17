@@ -35,4 +35,4 @@ Detta är en Pokédex byggd med React och TypeScript. Användaren kan söka efte
 
 ## 🔗 Länkar
 - 💻 [Live-demo](https://dindemo.netlify.app)
-- 📂 [Repo](https://github.com/ditt-namn/pokedex)
+- 📂 [Repo](https://github.com/Reyuuh/PokeDex.git)

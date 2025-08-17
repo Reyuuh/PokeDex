@@ -11,8 +11,7 @@
 ## 🔧 Tekniker som används
 - React / TypeScript
 - REST API (PokéAPI)
-- CSS Modules / Tailwind
-- ...
+- SCSS Modules
 
 ## 🚀 Funktioner
 - 🔍 Sök Pokémon

@@ -6,10 +6,7 @@
 
 
 ## 📘 Beskrivning
-En kort och tydlig beskrivning av vad projektet gör, varför du gjorde det och vilka funktioner det har.
-
-> Exempel:  
-> Detta är en Pokédex byggd med React och TypeScript. Användaren kan söka efter Pokémon, visa detaljer och filtrera efter typ.
+ Detta är en Pokédex byggd med React och TypeScript. Användaren kan söka efter Pokémon, visa detaljer och filtrera efter typ.
 
 ## 🔧 Tekniker som används
 - React / TypeScript

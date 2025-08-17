@@ -10,11 +10,11 @@
 }
 
 body {
-  background-image: url('/images/pokemon-bg.jpg'); // Optional: your background image
+  background-image: url('/images/pokemon-bg.jpg');
   background-size: cover;
   background-position: center;
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  width: 100%;
 }
 
 .landingpage-container {
@@ -22,47 +22,44 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 7rem;
-  height: 100vh;
+  gap: 4rem;
+  min-height: 100vh;
   text-align: center;
+  padding: 1rem;
 }
 
 .welcome {
-  font-size: 30px;
+  font-size: 16px;
 }
 
 .pokedex-continue-link {
-  font-size: 25px;
+  font-size: 14px;
   text-decoration: none;
   color: black;
-  padding: 10px 20px;
+  padding: 8px 16px;
   border-radius: 8px;
 }
 
-.pokedex-continue-link:hover{
-    text-decoration: underline;
+.pokedex-continue-link:hover {
+  text-decoration: underline;
 }
 
 /* 🔥 Animations */
 @keyframes slideInRight {
   from {
     transform: translateX(100%);
-  
   }
   to {
     transform: translateX(0);
-    
   }
 }
 
 @keyframes slideInLeft {
   from {
     transform: translateX(-100%);
-   
   }
   to {
     transform: translateX(0);
-    
   }
 }
 
@@ -72,4 +69,34 @@ body {
 
 .slide-in-left {
   animation: slideInLeft 1s ease-out forwards;
+}
+
+/* 💻 Larger screens (tablet and up) */
+@media (min-width: 600px) {
+  .landingpage-container {
+    gap: 5rem;
+  }
+
+  .welcome {
+    font-size: 24px;
+  }
+
+  .pokedex-continue-link {
+    font-size: 18px;
+  }
+}
+
+/* 🖥️ Desktop screens */
+@media (min-width: 1024px) {
+  .landingpage-container {
+    gap: 7rem;
+  }
+
+  .welcome {
+    font-size: 30px;
+  }
+
+  .pokedex-continue-link {
+    font-size: 25px;
+  }
 }

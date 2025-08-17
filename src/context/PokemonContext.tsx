@@ -53,7 +53,7 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
     searchResults: [],
   });
 
-  const ITEMS_PER_PAGE = 22;
+  const ITEMS_PER_PAGE = 15;
   // Fetch Pokémon Data
   const fetchPokemons = useCallback(async (page: number, itemsPerPage:number) => {
     if (state.pokemonsByPage[page]) return; // ✅ Avoid re-fetching existing pages

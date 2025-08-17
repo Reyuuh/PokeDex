@@ -1,18 +1,17 @@
-# 🎮 Pokédex app
-
-!https://s3.ezgif.com/tmp/ezgif-3e1da96e3f268c.gif
-
 ## 📘 Beskrivning
-En kort och tydlig beskrivning av vad projektet gör, varför du gjorde det och vilka funktioner det har.
+Detta är en Pokédex byggd med React och TypeScript. Användaren kan söka efter Pokémon, visa detaljer och filtrera efter typ.
 
-> Exempel:  
-> Detta är en Pokédex byggd med React och TypeScript. Användaren kan söka efter Pokémon, visa detaljer och filtrera efter typ.
+# 🎮 Pokédex app
+![Alt text](https://s3.ezgif.com/tmp/ezgif-34e018888281ab.gif)
+![Alt text](https://s3.ezgif.com/tmp/ezgif-3166f0e041f62d.gif)
+![Alt text](https://s3.ezgif.com/tmp/ezgif-33154686830a9a.gif)
+![Alt text](https://s3.ezgif.com/tmp/ezgif-3e1da96e3f268c.gif)
+
 
 ## 🔧 Tekniker som används
 - React / TypeScript
 - REST API (PokéAPI)
-- CSS Modules / Tailwind
-- ...
+- SCSS Modules
 
 ## 🚀 Funktioner
 - 🔍 Sök Pokémon
@@ -20,13 +19,20 @@ En kort och tydlig beskrivning av vad projektet gör, varför du gjorde det och 
 - 🎨 Filtrera efter typ
 - 📱 Responsiv design
 
-## 📸 Skärmbilder
-Lägg in screenshots i en `media/`-mapp eller använd direktlänk.
 
 ## 🧠 Lärdomar
-Vad lärde du dig under projektet? Vad hade du gjort annorlunda?
+- Jag fick en djupare förståelse för hur man hämtar och hanterar data från ett REST API (PokéAPI).  
+- Jag lärde mig att använda TypeScript för att skapa tydliga typer och gränssnitt, vilket minskade buggar och gjorde koden mer robust.  
+- Jag utvecklade mina kunskaper i komponentbaserat tänkande med React, och hur man bryter ner en applikation i mindre, återanvändbara delar.  
+- Jag fick erfarenhet av att arbeta med **state management** och hur man hanterar asynkrona anrop med `useEffect` och `useState`.  
+- Jag övade på att bygga en **responsiv design** med SCSS Modules, så att applikationen fungerar på både desktop och mobil.  
+- Jag insåg vikten av att strukturera projektet och hålla en tydlig mappstruktur för att underlätta vidareutveckling.  
+
+### Vad jag hade gjort annorlunda
+- Implementerat en mer avancerad state-hantering (t.ex. Redux eller Context API) för bättre skalbarhet.  
+- Lagt till enhetstester för att säkerställa att centrala funktioner fungerar som de ska.  
+- Förbättrat prestandan genom att optimera API-anrop (exempelvis caching av Pokémon-data).
 
 ## 🔗 Länkar
 - 💻 [Live-demo](https://dindemo.netlify.app)
-- 🧾 [Figma/Wireframe](länk)
-- 📂 [Repo](https://github.com/ditt-namn/pokedex)
+- 📂 [Repo](https://github.com/Reyuuh/PokeDex.git)

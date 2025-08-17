@@ -1,6 +1,6 @@
 # 🎮 Pokédex app
 
-![Alt text]([path/to/your.gif](https://s3.ezgif.com/tmp/ezgif-3e1da96e3f268c.gif))
+![Alt text](https://s3.ezgif.com/tmp/ezgif-3e1da96e3f268c.gif)
 
 
 ## 📘 Beskrivning

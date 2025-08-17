@@ -1,5 +1,5 @@
 import React from "react";
-import { PokemonDetails } from "../types/pokemonTypes";
+
 
 
 export const PokemonDetail: React.FC = () => {

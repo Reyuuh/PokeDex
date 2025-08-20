@@ -2,8 +2,9 @@
 Detta är en Pokédex byggd med React och TypeScript. Användaren kan söka efter Pokémon, visa detaljer och filtrera efter typ.
 
 # 🎮 Pokédex app
-![Alt text]()
+
 ![Alt text](public/images/intro.gif)
+![Alt text](idle.gif)
 ![Alt text](https://s3.ezgif.com/tmp/ezgif-33154686830a9a.gif)
 ![Alt text](https://s3.ezgif.com/tmp/ezgif-3e1da96e3f268c.gif)
 

@@ -38,28 +38,35 @@ export interface Pokemon {
 }
 
 export interface PokemonDetails {
-    id: number;
-    name: string;
-    height: number;
-    weight: number;
-    sprites: {
-        front_default: string;
-    };
-    types: {type: {name:string}} [];
+  id: number;
+  name: string;
+  height: number;
+  weight: number;
+  sprites: {
+    front_default: string;
+  };
+  types: { type: { name: string } }[];
+  stats: { base_stat: number; stat: { name: string } }[]; // Add stats
+  description?: string; // Add flavor text
 }
 
-export interface State {
-    
-    pokemonsByPage: { [key: number]: Pokemon[] };
-    currentPage: number;
-    searchQuery: string;
-    totalCount: number;
-    searchResults: Pokemon[];
-};
 
-export type Action = 
-| { type: "SET_POKEMONS"; payload: { page: number; pokemons: Pokemon[] } }
-| {type: "SET_PAGE"; payload: number}
-| {type: "SET_SEARCH"; payload: string}
-| {type: "SET_TOTAL_COUNT", payload: number}
-| { type: "SET_SEARCH_RESULT"; payload: Pokemon[] };
+export interface State {
+  pokemonsByPage: { [key: number]: Pokemon[] };
+  currentPage: number;
+  searchQuery: string;
+  totalCount: number;
+  searchResults: Pokemon[];
+  selectedPokemon?: PokemonDetails;
+  loadingDetails: boolean; // new
+}
+
+
+export type Action =
+  | { type: "SET_POKEMONS"; payload: { page: number; pokemons: Pokemon[] } }
+  | { type: "SET_PAGE"; payload: number }
+  | { type: "SET_SEARCH"; payload: string }
+  | { type: "SET_TOTAL_COUNT"; payload: number }
+  | { type: "SET_SEARCH_RESULT"; payload: Pokemon[] }
+  | { type: "SET_SELECTED_POKEMON"; payload: PokemonDetails } // existing
+  | { type: "SET_LOADING_DETAILS"; payload: boolean }; // <- add here

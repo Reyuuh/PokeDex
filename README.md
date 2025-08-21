@@ -7,6 +7,8 @@ Intro page
 
 
 ![Intro](public/images/intro.gif)
+
+
 Page swtiching and filtering Pokémon 
 
 

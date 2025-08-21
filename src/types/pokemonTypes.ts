@@ -47,13 +47,7 @@ export interface PokemonDetails {
     versions: any;
     front_default: string;
   };
-  "generation-vi"?: {
-        "x-y"?: {
-          animated?: {
-            front_default: string | null; // Animated sprite for Gen VI
-          };
-        };
-      };
+  
   types: { type: { name: string } }[];
   stats: { base_stat: number; stat: { name: string } }[]; // Add stats
   description?: string; // Add flavor text

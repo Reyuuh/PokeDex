@@ -25,26 +25,27 @@ export const PokemonDetail: React.FC = () => {
       <div className="back-link-container">
       <Link to="/pokemons" className="back-link">Back to List</Link>
       </div>
-
-      <h1>{pokemon.name.toUpperCase()}</h1>
-      <img className="pokemon-sprite" src={pokemon.sprites.front_default} alt={pokemon.name} />
-      
-     <div className="
-      pokemon-description-container">
-      <strong className="description" >Description</strong>
-      <p className="pokemon-description"> {pokemon.description}</p>
-     </div> 
-
-    <div className="pokemon-info-container">    
+<div className="three-in-row">
+<div className="pokemon-info-container">    
       <div className="attributes-container">
-      <h2>Attributes</h2>
+      <h2>ATTRIBUTES</h2>
       <p><strong>ID:</strong> {pokemon.id}</p>
       <p><strong>Height:</strong> {pokemon.height}</p>
       <p><strong>Weight:</strong> {pokemon.weight}</p>
       <p><strong>Types:</strong> {pokemon.types.map(t => t.type.name).join(", ")}</p>
       </div>
-    <div className="stats-container">
-      <h2>Stats</h2>
+
+  <div className="the-middle">
+      <h1>{pokemon.name.toUpperCase()}</h1>
+      <img
+    className="pokemon-sprite"
+    src={pokemon.sprites.animated ?? pokemon.sprites.front_default}
+    alt={pokemon.name}
+/>
+</div>
+
+<div className="stats-container">
+      <h2>STATS</h2>
       <ul>
         {pokemon.stats.map(stat => (
           <li key={stat.stat.name}>
@@ -53,7 +54,17 @@ export const PokemonDetail: React.FC = () => {
         ))}
       </ul>
       </div>  
-      </div>
+    </div>  
+</div>
+     <div className="
+      pokemon-description-container">
+      <strong className="description" >Description</strong>
+      <p className="pokemon-description"> {pokemon.description}</p>
+     </div> 
+
+    
+    
+      
     </div>
   );
 };

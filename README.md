@@ -6,6 +6,7 @@ Detta är en Pokédex byggd med React och TypeScript. Användaren kan söka efte
 ![Intro](public/images/intro.gif)
 ##Page swtiching and filtering Pokémon 
 ![Pageswitch](public/images/ezgif-6c3c8c9f745844.gif)
+
 ##Pokémon Stats and attributes
 ![Details](public/images/ezgif-66fb707b0bc876.gif)
 

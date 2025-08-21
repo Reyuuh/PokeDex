@@ -42,6 +42,8 @@ export const PokemonList: React.FC = () => {
 <Link className="pokedex-home-link" to="/">Return to start</Link>
 
       <SearchBar query={state.searchQuery} onSearchChange={handleSearchChange} />
+
+      
       <ul className="pokemon-creatures">
         {pokemonsToDisplay.length > 0 ? (
           pokemonsToDisplay.map((pokemon) => <PokemonItem key={pokemon.id} pokemon={pokemon} />)

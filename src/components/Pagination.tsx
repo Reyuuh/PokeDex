@@ -14,9 +14,7 @@ return(
        <button className="page-button" onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
         Previous
        </button>
-
        <span>Page {currentPage} of {totalPages}</span>
-
        <button className="page-button" onClick={() => onPageChange(currentPage + 1)} disabled={currentPage >= totalPages}>
         Next
       </button>

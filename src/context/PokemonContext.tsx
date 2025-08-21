@@ -96,8 +96,16 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
 const fetchPokemonDetails = useCallback(async (nameOrId: string | number) => {
   dispatch({ type: "SET_LOADING_DETAILS", payload: true });
   try {
+
+
+    
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${nameOrId}`);
     const pokemonData = await res.json();
+   
+    const animatedSprite =
+    pokemonData.sprites.versions["generation-v"]?.["black-white"]?.animated
+    ?.front_default || null;
+
 
     const speciesRes = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${nameOrId}`);
     const speciesData = await speciesRes.json();
@@ -106,16 +114,19 @@ const fetchPokemonDetails = useCallback(async (nameOrId: string | number) => {
       (entry: any) => entry.language.name === "en"
     );
 
-    const pokemonDetails: PokemonDetails = {
-      id: pokemonData.id,
-      name: pokemonData.name,
-      height: pokemonData.height,
-      weight: pokemonData.weight,
-      sprites: { front_default: pokemonData.sprites.front_default },
-      types: pokemonData.types,
-      stats: pokemonData.stats,
-      description: flavorEntry?.flavor_text.replace(/\n|\f/g, " "),
-    };
+   const pokemonDetails: PokemonDetails = {
+  id: pokemonData.id,
+  name: pokemonData.name,
+  height: pokemonData.height,
+  weight: pokemonData.weight,
+  sprites: { 
+    front_default: pokemonData.sprites.front_default,
+    animated: animatedSprite
+  },
+  types: pokemonData.types,
+  stats: pokemonData.stats,
+  description: flavorEntry?.flavor_text.replace(/\n|\f/g, " "),
+};
 
     dispatch({ type: "SET_SELECTED_POKEMON", payload: pokemonDetails });
   } catch (error) {

@@ -4,9 +4,9 @@ Detta är en Pokédex byggd med React och TypeScript. Användaren kan söka efte
 # 🎮 Pokédex app
 
 ![Alt text](public/images/intro.gif)
-![Alt text](public/images/idle.gif)
-![Alt text](public/images/filter.gif)
-![Alt text](public/images/pageswitch.gif)
+![Alt text](public/images/ezgif-6c3c8c9f745844.gif)
+![Alt text](public/images/ezgif-66fb707b0bc876.gif)
+
 
 
 ## 🔧 Tekniker som används

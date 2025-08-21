@@ -1,5 +1,14 @@
 .back-link-container {
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
+  
+}
+
+.back-link {
+  color: black;
+  text-decoration: none;
+}
+.back-link:hover {
+  text-decoration: underline;
 }
 
 .pokemon-detail-container {
@@ -10,19 +19,24 @@
 }
 
 .attributes-container {
-    text-align: center;
+    
     margin-top: 1rem;
 }
 
+.description {
+  font-weight: bold;
+  font-size: 1.4rem;
+  text-align: center;
+}
 .pokemon-description-container {
   text-align: center;
 }
 
 .pokemon-description {
   text-align: center;
-  color: #000;
-  margin-top: 1rem;
-  background-color: #43c4f0;
+  color: #fff;
+  margin-top: 3rem;
+  background-color: #0a95c4;
   padding: 45px 30px;
 }
 

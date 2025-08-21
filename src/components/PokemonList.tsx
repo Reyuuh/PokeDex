@@ -39,7 +39,7 @@ export const PokemonList: React.FC = () => {
       </Link>
       </div>
 
-<Link className="pokedex-home-link" to="/">Home</Link>
+<Link className="pokedex-home-link" to="/">Return to start</Link>
 
       <SearchBar query={state.searchQuery} onSearchChange={handleSearchChange} />
       <ul className="pokemon-creatures">

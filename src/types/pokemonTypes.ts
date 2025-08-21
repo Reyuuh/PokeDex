@@ -44,6 +44,7 @@ export interface PokemonDetails {
   height: number;
   weight: number;
   sprites: {
+    versions: any;
     front_default: string;
   };
   "generation-vi"?: {

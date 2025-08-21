@@ -28,12 +28,12 @@ export const PokemonDetail: React.FC = () => {
 
       <h1>{pokemon.name.toUpperCase()}</h1>
       <img className="pokemon-sprite" src={pokemon.sprites.front_default} alt={pokemon.name} />
-     
+      
      <div className="
       pokemon-description-container">
-      <strong className="description" >Description:</strong>
+      <strong className="description" >Description</strong>
       <p className="pokemon-description"> {pokemon.description}</p>
-</div> 
+     </div> 
 
     <div className="pokemon-info-container">    
       <div className="attributes-container">

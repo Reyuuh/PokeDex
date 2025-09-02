@@ -1,6 +1,6 @@
 .pagination-container {
   display: flex;
-  flex-direction: column; 
+  flex-direction: row; 
   justify-content: center;
   align-items: center;
   padding: 1rem;
@@ -13,9 +13,18 @@
   margin-top: 1rem;
 }
 
+.page-of-text {
+  font-size: 0.6rem;
+  font-weight: bold;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  
+}
+
 .page-button {
   padding: 1rem;
-  font-size: 1rem;
+  font-size: 0.8rem;
   text-decoration: none;
   background-color: #1891b9;
   border: none;

@@ -1,21 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
-* {
-  padding: 0;
-  margin: 0;
-  font-family: "Press Start 2P", system-ui;
-  font-weight: 300;
-  font-style: normal;
-  box-sizing: border-box;
-}
-
-body {
-  background-image: url('/images/pokemon-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  min-height: 100vh;
-  width: 100%;
-}
+@use 'variables' as *;
+@use 'mixins' as *;
 
 .landingpage-container {
   display: flex;
@@ -35,7 +19,7 @@ body {
 .pokedex-continue-link {
   font-size: 14px;
   text-decoration: none;
-  color: black;
+  color: $color-black;
   padding: 8px 16px;
   border-radius: 8px;
 }
@@ -44,35 +28,7 @@ body {
   text-decoration: underline;
 }
 
-/* 🔥 Animations */
-@keyframes slideInRight {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-.slide-in-right {
-  animation: slideInRight 1s ease-out forwards;
-}
-
-.slide-in-left {
-  animation: slideInLeft 1s ease-out forwards;
-}
-
-/* 💻 Larger screens (tablet and up) */
-@media (min-width: 600px) {
+@include landing-tablet {
   .landingpage-container {
     gap: 5rem;
   }
@@ -86,8 +42,7 @@ body {
   }
 }
 
-/* 🖥️ Desktop screens */
-@media (min-width: 1024px) {
+@include landing-desktop {
   .landingpage-container {
     gap: 7rem;
   }

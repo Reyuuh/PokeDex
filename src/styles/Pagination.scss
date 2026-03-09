@@ -1,6 +1,9 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
 .pagination-container {
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 1rem;
@@ -19,18 +22,17 @@
   color: #333;
   white-space: nowrap;
   overflow: hidden;
-  
 }
 
 .page-button {
   padding: 1rem;
   font-size: 0.8rem;
   text-decoration: none;
-  background-color: #1891b9;
+  background-color: $color-secondary;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 100%; 
+  width: 100%;
   max-width: 200px;
   text-align: center;
 }
@@ -47,20 +49,20 @@
 }
 
 /* Desktop/tablet overrides */
-@media (min-width: 768px) {
+@include tablet {
   .pagination-container {
-    flex-direction: row; 
+    flex-direction: row;
     padding: 2rem;
     gap: 2rem;
   }
 
   .page-button {
-    background-color: #1891b9;
-    color: #ffffff;
+    background-color: $color-secondary;
+    color: $color-white;
   }
 
   .page-button {
-    width: auto; 
+    width: auto;
     font-size: 1.1rem;
     padding: 1rem 2rem;
   }

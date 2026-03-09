@@ -1,149 +1,342 @@
-.back-link-container {
-  margin-bottom: 3rem;
-}
+@use 'variables' as *;
+@use 'mixins' as *;
 
-.back-link {
-padding: 10px;
-  background-color: black;
-  color: white;
-  text-decoration: none;
-  font-size: 1.5rem;
-}
-.back-link:hover {
-  background-color: white;
-  color: black;
-}
-
-/* mobile: stacked by default */
-.three-in-row {
+/* ─────────────────────────────
+   Page shell
+───────────────────────────── */
+.dex-page {
+  max-width: 860px;
+  margin: 2rem auto;
+  padding: 0 1rem 4rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-
+  gap: 0;
 }
 
-.the-middle {
+.dex-loading {
+  text-align: center;
+  padding: 4rem;
+  color: $color-white;
+  font-size: 0.8rem;
+}
+
+/* ─────────────────────────────
+   Header bar
+───────────────────────────── */
+.dex-header {
+  background-color: $color-primary;
+  color: $color-white;
+  padding: 1rem 1.25rem;
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 1rem;
-  order: -1;
-
+  flex-wrap: wrap;
+  border: 3px solid $color-black;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
 }
 
-.h1 {
-  font-size: 2rem; /* slightly smaller on mobile */
-  margin-top: 5rem;
+.dex-back {
+  color: $color-white;
+  text-decoration: none;
+  font-size: 0.65rem;
+  border: 2px solid $color-white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: $color-white;
+    color: $color-primary;
+  }
 }
-.pokemon-sprite {
-  margin-top: 2rem;
-  height: 70px;
-  width: auto;
-  
+
+.dex-number {
+  font-size: 0.75rem;
+  opacity: 0.8;
 }
 
+.dex-title {
+  font-size: 0.95rem;
+  flex: 1;
+}
 
+.dex-types {
+  display: flex;
+  gap: 8px;
+}
 
-.pokemon-detail-container {
+.dex-type-badge {
+  font-size: 0.55rem;
+  padding: 5px 12px;
+  border-radius: 20px;
+  color: $color-white;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+/* ─────────────────────────────
+   Main panel: screen + info
+───────────────────────────── */
+.dex-main {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid $color-black;
+  border-bottom: none;
+  background-color: #d4e8f0;
+
+  @include desktop {
+    flex-direction: row;
+  }
+}
+
+/* Sprite "screen" */
+.dex-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
+  padding: 2rem;
+  background-color: #c8dce8;
+  border-bottom: 3px solid $color-black;
+
+  @include desktop {
+    border-bottom: none;
+    border-right: 3px solid $color-black;
+    min-width: 260px;
+  }
 }
 
-.attributes-container {
-  margin-top: 1rem;
+.dex-screen-inner {
+  width: 200px;
+  height: 200px;
+  background-color: #9bbccc;
+  border: 4px solid $color-black;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    inset 3px 3px 0 #7aa8bb,
+    inset -3px -3px 0 #b8d4e0;
+  image-rendering: pixelated;
 }
 
-.description {
-
-  margin-top: 3rem;
-  font-weight: bold;
-  font-size: 1.2rem;
-  text-align: center;
-}
-.pokemon-description-container {
-  text-align: center;
-  margin-top: 2rem;
+.dex-sprite {
+  height: 160px;
+  width: auto;
+  image-rendering: pixelated;
 }
 
-.pokemon-description {
-  text-align: center;
-  color: #fff;
-  margin-top: 2rem;
-  background-color: #076686;
-  padding: 30px 20px;
+.dex-no-sprite {
+  font-size: 3rem;
+  color: #7aa8bb;
 }
 
-.pokemon-info-container {
+.dex-screen-label {
+  margin-top: 0.6rem;
+  font-size: 0.4rem;
+  color: #6890a0;
+  letter-spacing: 0.05em;
+}
+
+/* Quick info panel */
+.dex-quick-info {
+  padding: 1.25rem 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding-top: 30px;
+  gap: 1.25rem;
+  flex: 1;
 }
 
-.attributes-container{
-  background-color: #1bd66f;
-  padding: 1rem;
+.dex-info-table {
+  border-collapse: collapse;
+  font-size: 0.65rem;
+  width: 100%;
+
+  td {
+    padding: 6px 10px 6px 0;
+  }
+
+  td:first-child {
+    color: $color-primary;
+    font-weight: bold;
+    white-space: nowrap;
+    width: 4rem;
+  }
+
+  td:last-child {
+    color: $color-black;
+  }
+
+  tr {
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
 }
 
-.stats-container {
-  background-color: #ffff00;
-  padding: 1rem;
+.dex-abilities {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
 }
 
-.stats-container h2,
-.attributes-container h2 {
-  margin-bottom: 1rem;
+.dex-ability {
+  font-size: 0.6rem;
+  padding: 6px 10px;
+  background: $color-white;
+  border: 2px solid $color-black;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
+.dex-ability--hidden {
+  border-style: dashed;
+  opacity: 0.8;
+}
 
-/* Desktop styles */
-@media (min-width: 900px) {
-  .three-in-row {
+.dex-hidden-tag {
+  font-size: 0.45rem;
+  background: #888;
+  color: $color-white;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+/* ─────────────────────────────
+   Shared label
+───────────────────────────── */
+.dex-section-label {
+  font-size: 0.6rem;
+  color: $color-primary;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.65rem;
+  border-bottom: 2px solid $color-primary;
+  padding-bottom: 4px;
+}
+
+/* ─────────────────────────────
+   Pokédex entry
+───────────────────────────── */
+.dex-entry {
+  border: 3px solid $color-black;
+  border-bottom: none;
+  background: #1a3a4a;
+  padding: 1.25rem 1.5rem;
+}
+
+.dex-entry .dex-section-label {
+  color: #7dd8f0;
+  border-bottom-color: #7dd8f0;
+}
+
+.dex-flavor {
+  font-size: 0.65rem;
+  color: #d4f0ff;
+  line-height: 2;
+}
+
+/* ─────────────────────────────
+   Base stats
+───────────────────────────── */
+.dex-stats-panel {
+  border: 3px solid $color-black;
+  border-bottom: none;
+  background: $color-white;
+  padding: 1.25rem 1.5rem;
+}
+
+.dex-stat-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 9px;
+}
+
+.dex-stat-name {
+  font-size: 0.55rem;
+  width: 4.5rem;
+  text-align: right;
+  color: #444;
+  flex-shrink: 0;
+}
+
+.dex-stat-value {
+  font-size: 0.6rem;
+  width: 2.25rem;
+  text-align: right;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.dex-stat-bar {
+  flex: 1;
+  height: 14px;
+  background: #e0e0e0;
+  border: 2px solid $color-black;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.dex-stat-fill {
+  height: 100%;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 7px,
+    rgba(0,0,0,0.15) 7px,
+    rgba(0,0,0,0.15) 8px
+  );
+  transition: width 0.4s ease;
+}
+
+/* ─────────────────────────────
+   Training & Breeding
+───────────────────────────── */
+.dex-extra {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid $color-black;
+
+  @include desktop {
     flex-direction: row;
-    justify-content: center;
-  }
-
- .the-middle {
-    order: 0; /* reset to original */
-  }
-  
-  .h1 {
-    font-size: 2.5rem;
-    margin-top: 10rem;
-  }
-
-  .pokemon-sprite {
-    margin-top: 2rem;
-    height: 100px;
-    width: auto;
-  }
-
-  .pokemon-description-container {
-   
-    margin-top: 2rem;
-  }
-
-  .pokemon-description {
-    margin-top: 6rem;
-    padding: 45px 30px;
-  }
-
-  .pokemon-info-container {
-    flex-direction: row;
-    gap: 13rem;
-    padding-top: 50px;
-  }
-
-  .attributes-container,
-  .stats-container {
-    padding-right: 4rem;
-  }
-
-  .stats-container h2,
-  .attributes-container h2 {
-    margin-bottom: 2rem;
   }
 }
+
+.dex-extra-panel {
+  flex: 1;
+  padding: 1.25rem 1.5rem;
+  background: #f4f4e8;
+
+  &:first-child {
+    border-bottom: 3px solid $color-black;
+
+    @include desktop {
+      border-bottom: none;
+      border-right: 3px solid $color-black;
+    }
+  }
+}
+
+.dex-extra-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  font-size: 0.55rem;
+
+  span:first-child {
+    color: #666;
+  }
+
+  span:last-child {
+    font-weight: bold;
+    color: $color-black;
+    text-align: right;
+  }
+}
+

@@ -2,8 +2,16 @@ export interface Pokemon {
   id: number;
   name: string;
   url: string;
+  height: number;
+  weight: number;
+  abilities: { ability: { name: string }; is_hidden: boolean }[];
   sprites: {
-    front_default: string | null; // Static default sprite
+    front_default: string | null;
+    other?: {
+      "official-artwork"?: {
+        front_default: string | null;
+      };
+    };
     versions: {
       "generation-v"?: {
         "black-white"?: {
@@ -43,33 +51,51 @@ export interface PokemonDetails {
   name: string;
   height: number;
   weight: number;
+  base_experience: number;
   sprites: {
     front_default: string;
-     animated?: string | null;
+    animated?: string | null;
   };
-
   types: { type: { name: string } }[];
-  stats: { base_stat: number; stat: { name: string } }[]; // Add stats
-  description?: string; // Add flavor text
+  abilities: { ability: { name: string }; is_hidden: boolean }[];
+  stats: { base_stat: number; stat: { name: string } }[];
+  description?: string;
+  capture_rate: number;
+  gender_rate: number;
+  egg_groups: { name: string }[];
+  habitat: { name: string } | null;
+  growth_rate: { name: string };
+  generation: { name: string };
 }
 
 
+export type SortBy = 'id-asc' | 'id-desc' | 'name-asc' | 'name-desc';
+
 export interface State {
-  pokemonsByPage: { [key: number]: Pokemon[] };
-  currentPage: number;
+  pokemons: Pokemon[];
+  nextPage: number;
   searchQuery: string;
   totalCount: number;
   searchResults: Pokemon[];
   selectedPokemon?: PokemonDetails;
-  loadingDetails: boolean; // new
+  loadingDetails: boolean;
+  isLoadingMore: boolean;
+  hasMore: boolean;
+  isSearching: boolean;
+  filterType: string | null;
+  sortBy: SortBy;
 }
 
-
 export type Action =
-  | { type: "SET_POKEMONS"; payload: { page: number; pokemons: Pokemon[] } }
-  | { type: "SET_PAGE"; payload: number }
+  | { type: "APPEND_POKEMONS"; payload: Pokemon[] }
+  | { type: "SET_NEXT_PAGE"; payload: number }
   | { type: "SET_SEARCH"; payload: string }
   | { type: "SET_TOTAL_COUNT"; payload: number }
   | { type: "SET_SEARCH_RESULT"; payload: Pokemon[] }
-  | { type: "SET_SELECTED_POKEMON"; payload: PokemonDetails } // existing
-  | { type: "SET_LOADING_DETAILS"; payload: boolean }; // <- add here
+  | { type: "SET_SELECTED_POKEMON"; payload: PokemonDetails }
+  | { type: "SET_LOADING_DETAILS"; payload: boolean }
+  | { type: "SET_LOADING_MORE"; payload: boolean }
+  | { type: "SET_HAS_MORE"; payload: boolean }
+  | { type: "SET_IS_SEARCHING"; payload: boolean }
+  | { type: "SET_FILTER_TYPE"; payload: string | null }
+  | { type: "SET_SORT_BY"; payload: SortBy };

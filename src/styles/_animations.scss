@@ -43,6 +43,13 @@
   animation: slideInLeft 1s ease-out forwards;
 }
 
+@keyframes pixel-fall {
+  0%   { transform: translateY(-20px) translateX(0);              opacity: 0; }
+  8%   { opacity: 0.3; }
+  92%  { opacity: 0.3; }
+  100% { transform: translateY(110vh) translateX(var(--drift-x)); opacity: 0; }
+}
+
 @keyframes gradient-shift {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }

@@ -1,0 +1,15 @@
+.pixel-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+  background: #080e1a;
+}
+
+.pixel {
+  position: absolute;
+  image-rendering: pixelated;
+  opacity: 0;
+  box-shadow: 0 0 4px 1px var(--glow-color, rgba(255,255,255,0.2));
+}

@@ -63,6 +63,33 @@ npm run dev
 
 ---
 
+## 🗺 Roadmap
+
+Things I'd improve with more time:
+
+**Code quality**
+- Extract `TYPE_COLORS` into a shared constants file — currently duplicated across 3 components
+- Add an error boundary so a failed API call doesn't silently crash the app
+- Add an error state to the global context so users get feedback on network failures
+- Debounce the search input to avoid firing API calls on every keystroke
+
+**UX improvements**
+- Fuzzy search — currently only matches from the start of a name (typing "chu" won't find Pikachu)
+- Image loading placeholders / skeletons while sprites are fetching
+- Allow search and type/generation filters to work together simultaneously
+- Evolution chain on the detail page
+
+**Performance & accessibility**
+- `React.memo` on `PokemonItem` to prevent unnecessary re-renders as the list grows
+- Virtual scrolling to keep the DOM lean at 1,025+ Pokémon
+- ARIA labels on navigation and filter buttons for keyboard/screen reader support
+
+**Nice to have**
+- Favourites with `localStorage` persistence
+- Unit tests with Vitest
+
+---
+
 ## 🔗 Links
 
 - 💻 [Live Demo](https://pokedex-git-master-intis-projects-4184abf2.vercel.app/)

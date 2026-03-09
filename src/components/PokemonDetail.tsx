@@ -102,7 +102,6 @@ export const PokemonDetail: React.FC = () => {
               : <span className="dex-no-sprite">?</span>
             }
           </div>
-          <div className="dex-screen-label">PRESS START 2P</div>
         </div>
 
         <div className="dex-quick-info">

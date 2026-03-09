@@ -1,20 +1,20 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
 .searchbar-container {
   display: flex;
   justify-content: center;
   padding: 2rem;
 }
 
-.search-bar{
-    border-radius: 10px;
-    padding: 1rem;
-    text-align: center;
-}
-
-
-@media (min-width: 900px) {
-
 .search-bar {
- 
-padding: 1rem;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
 }
+
+@include desktop {
+  .search-bar {
+    padding: 1rem;
+  }
 }

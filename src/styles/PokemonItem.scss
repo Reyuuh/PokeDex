@@ -1,0 +1,135 @@
+@use 'variables' as *;
+
+.sprite-item {
+  list-style: none;
+  position: relative;
+  animation: fadeIn 0.4s ease both;
+}
+
+.sprite-link-full {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.sprite-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 1rem;
+  border: 2px solid $color-border;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  background: $color-white;
+  height: 13rem;
+  width: 13rem;
+  position: relative;
+  overflow: visible;
+}
+
+.sprite-container:hover {
+  background-color: #f8f8f8;
+  transform: scale(1.12);
+  z-index: 5;
+}
+
+.sprite-name {
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.sprite-themselves {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+
+  img {
+    max-width: 100%;
+    max-height: 7rem;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+/* Hover card */
+.hover-card {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  width: 160px;
+  background: $color-white;
+  border: 2px solid $color-border;
+  border-radius: 10px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 10;
+  font-size: 0.55rem;
+}
+
+.sprite-container:hover .hover-card {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.hover-types {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.type-badge {
+  padding: 2px 7px;
+  border-radius: 20px;
+  color: $color-white;
+  font-size: 0.5rem;
+  text-transform: capitalize;
+  font-weight: bold;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+}
+
+.hover-abilities {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  li {
+    text-transform: capitalize;
+  }
+}
+
+.hover-label {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.45rem;
+  color: #555;
+  letter-spacing: 0.05em;
+}
+
+.hover-stats {
+  display: flex;
+  justify-content: space-between;
+  color: #555;
+  border-top: 1px solid #eee;
+  padding-top: 4px;
+}

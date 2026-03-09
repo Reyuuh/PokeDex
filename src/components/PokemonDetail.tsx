@@ -1,8 +1,43 @@
 import React, { useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { PokemonContext } from "../context/PokemonContext";
 import '../styles/PokemonDetail.scss'
-import { Link } from "react-router-dom";
+
+const typeColors: Record<string, string> = {
+  fire:     '#F08030', water:    '#6890F0', grass:    '#78C850',
+  electric: '#F8D030', psychic:  '#F85888', ice:      '#98D8D8',
+  dragon:   '#7038F8', dark:     '#705848', fairy:    '#EE99AC',
+  normal:   '#A8A878', fighting: '#C03028', poison:   '#A040A0',
+  ground:   '#E0C068', flying:   '#A890F0', bug:      '#A8B820',
+  rock:     '#B8A038', ghost:    '#705898', steel:    '#B8B8D0',
+};
+
+const statLabels: Record<string, string> = {
+  'hp':              'HP',
+  'attack':          'ATK',
+  'defense':         'DEF',
+  'special-attack':  'SP.ATK',
+  'special-defense': 'SP.DEF',
+  'speed':           'SPD',
+};
+
+function getStatColor(value: number): string {
+  if (value < 50)  return '#ff4444';
+  if (value < 80)  return '#ffaa00';
+  if (value < 100) return '#ffdd00';
+  return '#1bd66f';
+}
+
+function formatGender(genderRate: number): string {
+  if (genderRate === -1) return 'Genderless';
+  const femaleRatio = genderRate * 12.5;
+  const maleRatio   = 100 - femaleRatio;
+  return `${maleRatio}% ♂ / ${femaleRatio}% ♀`;
+}
+
+function formatGeneration(gen: string): string {
+  return gen.replace('generation-', 'Gen ').toUpperCase();
+}
 
 export const PokemonDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -14,57 +49,110 @@ export const PokemonDetail: React.FC = () => {
 
   const pokemon = state.selectedPokemon;
 
-  if (!pokemon) return <div>Loading...</div>;
+  if (!pokemon) return <div className="dex-loading">Loading Pokédex...</div>;
+
+  const sprite = pokemon.sprites.animated ?? pokemon.sprites.front_default;
+  const dexNumber = `#${String(pokemon.id).padStart(3, '0')}`;
 
   return (
+    <div className="dex-page">
 
-
-    
-
-    <div className="pokemon-detail-container">
-      <div className="back-link-container">
-      <Link to="/pokemons" className="back-link">Back to List</Link>
+      {/* ── Header bar ── */}
+      <div className="dex-header">
+        <Link to="/pokemons" className="dex-back">← BACK</Link>
+        <span className="dex-number">{dexNumber}</span>
+        <span className="dex-title">{pokemon.name.toUpperCase()}</span>
+        <div className="dex-types">
+          {pokemon.types.map(({ type }) => (
+            <span
+              key={type.name}
+              className="dex-type-badge"
+              style={{ backgroundColor: typeColors[type.name] ?? '#888' }}
+            >
+              {type.name.toUpperCase()}
+            </span>
+          ))}
+        </div>
       </div>
-<div className="three-in-row">
-<div className="pokemon-info-container">    
-      <div className="attributes-container">
-      <h2>ATTRIBUTES</h2>
-      <p><strong>ID:</strong> {pokemon.id}</p>
-      <p><strong>Height:</strong> {pokemon.height}</p>
-      <p><strong>Weight:</strong> {pokemon.weight}</p>
-      <p><strong>Types:</strong> {pokemon.types.map(t => t.type.name).join(", ")}</p>
+
+      {/* ── Main panel: screen + quick info ── */}
+      <div className="dex-main">
+        <div className="dex-screen">
+          <div className="dex-screen-inner">
+            {sprite
+              ? <img src={sprite} alt={pokemon.name} className="dex-sprite" />
+              : <span className="dex-no-sprite">?</span>
+            }
+          </div>
+          <div className="dex-screen-label">PRESS START 2P</div>
+        </div>
+
+        <div className="dex-quick-info">
+          <table className="dex-info-table">
+            <tbody>
+              <tr><td>HT</td><td>{pokemon.height / 10} m</td></tr>
+              <tr><td>WT</td><td>{pokemon.weight / 10} kg</td></tr>
+              <tr><td>EXP</td><td>{pokemon.base_experience}</td></tr>
+              <tr><td>CAP</td><td>{pokemon.capture_rate}</td></tr>
+            </tbody>
+          </table>
+
+          <div className="dex-abilities">
+            <div className="dex-section-label">ABILITY</div>
+            {pokemon.abilities.map(({ ability, is_hidden }) => (
+              <div key={ability.name} className={`dex-ability${is_hidden ? ' dex-ability--hidden' : ''}`}>
+                {ability.name.replace('-', ' ').toUpperCase()}
+                {is_hidden && <span className="dex-hidden-tag">HIDDEN</span>}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
-  <div className="the-middle">
-      <h1>{pokemon.name.toUpperCase()}</h1>
-      <img
-    className="pokemon-sprite"
-    src={pokemon.sprites.animated ?? pokemon.sprites.front_default}
-    alt={pokemon.name}
-/>
-</div>
+      {/* ── Pokédex entry ── */}
+      <div className="dex-entry">
+        <div className="dex-section-label">POKÉDEX ENTRY</div>
+        <p className="dex-flavor">{pokemon.description}</p>
+      </div>
 
-<div className="stats-container">
-      <h2>STATS</h2>
-      <ul>
-        {pokemon.stats.map(stat => (
-          <li key={stat.stat.name}>
-            {stat.stat.name}: {stat.base_stat}
-          </li>
+      {/* ── Base stats ── */}
+      <div className="dex-stats-panel">
+        <div className="dex-section-label">BASE STATS</div>
+        {pokemon.stats.map(({ stat, base_stat }) => (
+          <div key={stat.name} className="dex-stat-row">
+            <span className="dex-stat-name">{statLabels[stat.name] ?? stat.name}</span>
+            <span className="dex-stat-value">{base_stat}</span>
+            <div className="dex-stat-bar">
+              <div
+                className="dex-stat-fill"
+                style={{
+                  width: `${Math.round((base_stat / 255) * 100)}%`,
+                  backgroundColor: getStatColor(base_stat),
+                }}
+              />
+            </div>
+          </div>
         ))}
-      </ul>
-      </div>  
-    </div>  
-</div>
-     <div className="
-      pokemon-description-container">
-      <strong className="description" >Description</strong>
-      <p className="pokemon-description"> {pokemon.description}</p>
-     </div> 
+      </div>
 
-    
-    
-      
+      {/* ── Training & Breeding ── */}
+      <div className="dex-extra">
+        <div className="dex-extra-panel">
+          <div className="dex-section-label">TRAINING</div>
+          <div className="dex-extra-row"><span>Growth Rate</span><span>{pokemon.growth_rate.name.replace('-', ' ').toUpperCase()}</span></div>
+          <div className="dex-extra-row"><span>Base EXP</span><span>{pokemon.base_experience}</span></div>
+          <div className="dex-extra-row"><span>Capture Rate</span><span>{pokemon.capture_rate}</span></div>
+        </div>
+
+        <div className="dex-extra-panel">
+          <div className="dex-section-label">BREEDING</div>
+          <div className="dex-extra-row"><span>Gender</span><span>{formatGender(pokemon.gender_rate)}</span></div>
+          <div className="dex-extra-row"><span>Egg Groups</span><span>{pokemon.egg_groups.map(g => g.name.toUpperCase()).join(', ')}</span></div>
+          <div className="dex-extra-row"><span>Habitat</span><span>{pokemon.habitat?.name.toUpperCase() ?? '—'}</span></div>
+          <div className="dex-extra-row"><span>Generation</span><span>{formatGeneration(pokemon.generation.name)}</span></div>
+        </div>
+      </div>
+
     </div>
   );
 };

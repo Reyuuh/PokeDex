@@ -1,6 +1,11 @@
 @use 'variables' as *;
 @use 'mixins' as *;
 
+.pokemon-container {
+  min-height: 100vh;
+  background-color: #12151f;
+}
+
 .title-container {
   display: flex;
   justify-content: center;
@@ -28,7 +33,7 @@
   display: flex;
   justify-content: center;
   padding: 1rem;
-  color: $color-black;
+  color: $color-white;
   text-decoration: none;
 }
 

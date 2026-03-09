@@ -3,55 +3,230 @@
 
 .landingpage-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4rem;
   min-height: 100vh;
-  text-align: center;
   padding: 1rem;
+  background: linear-gradient(
+    135deg,
+    #0a1628,
+    #0d2a40,
+    #1a0a3e,
+    #0a2a1a,
+    #0d2a40,
+    #0a1628
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 18s ease infinite;
 }
 
-.welcome {
-  font-size: 16px;
+/* ── Panel ── */
+.landing-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 380px;
+  border: 4px solid $color-black;
+  border-radius: 16px 16px 12px 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 0 2px rgba(255,255,255,0.08);
+  animation: fadeIn 0.6s ease both;
 }
 
-.pokedex-continue-link {
-  font-size: 14px;
-  text-decoration: none;
+/* ── Header ── */
+.landing-header {
+  background: $color-primary;
+  padding: 1rem 1.25rem 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 4px solid $color-black;
+}
+
+.landing-lights {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.landing-light {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.3);
+
+  &--blue   { background: #4fc3f7; box-shadow: 0 0 6px #4fc3f7; }
+  &--red    { background: #ef5350; box-shadow: 0 0 6px #ef5350; }
+  &--yellow { background: $color-accent-yellow; box-shadow: 0 0 6px $color-accent-yellow; }
+}
+
+.landing-title {
+  font-size: 1.4rem;
+  color: $color-white;
+  letter-spacing: 0.08em;
+  animation: glow 2.5s ease-in-out infinite;
+
+  @include landing-tablet {
+    font-size: 1.8rem;
+  }
+}
+
+/* ── Screen ── */
+.landing-screen {
+  background: #0d2230;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  border-bottom: 4px solid $color-black;
+
+  @include landing-tablet {
+    min-height: 340px;
+  }
+}
+
+.landing-pokemon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.landing-pokemon-img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 8px 24px rgba(24, 145, 185, 0.5));
+
+  @include landing-tablet {
+    width: 220px;
+    height: 220px;
+  }
+}
+
+.landing-pokemon-name {
+  font-size: 0.7rem;
+  color: $color-white;
+  letter-spacing: 0.1em;
+
+  @include landing-tablet {
+    font-size: 0.85rem;
+  }
+}
+
+.landing-pokemon-types {
+  display: flex;
+  gap: 6px;
+}
+
+.landing-type-badge {
+  font-size: 0.4rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  color: $color-white;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.2);
+
+  @include landing-tablet {
+    font-size: 0.5rem;
+  }
+}
+
+.landing-screen-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.landing-question {
+  font-size: 5rem;
+  color: rgba(255,255,255,0.15);
+}
+
+.landing-loading-text {
+  font-size: 0.5rem;
+  color: rgba(255,255,255,0.4);
+  animation: blink 1s step-start infinite;
+}
+
+/* ── Fun fact ── */
+.landing-fact {
+  background: #07202e;
+  border-top: 3px solid $color-black;
+  border-bottom: 3px solid $color-black;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.landing-fact-label {
+  font-size: 0.38rem;
+  color: $color-secondary;
+  letter-spacing: 0.12em;
+  border-bottom: 1px solid rgba(24, 145, 185, 0.3);
+  padding-bottom: 4px;
+}
+
+.landing-fact-text {
+  font-size: 0.45rem;
+  color: #a8d8ea;
+  line-height: 2;
+
+  @include landing-tablet {
+    font-size: 0.5rem;
+  }
+}
+
+/* ── Footer ── */
+.landing-footer {
+  background: #09374d;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.landing-tagline {
+  font-size: 0.4rem;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.08em;
+  text-align: center;
+
+  @include landing-tablet {
+    font-size: 0.5rem;
+  }
+}
+
+.landing-start-btn {
+  font-family: inherit;
+  font-size: 0.6rem;
   color: $color-black;
-  padding: 8px 16px;
-  border-radius: 8px;
-}
+  background: $color-accent-yellow;
+  text-decoration: none;
+  padding: 10px 28px;
+  border-radius: 4px;
+  border: 3px solid $color-black;
+  letter-spacing: 0.1em;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 0 0 rgba(255,215,0,0);
+  animation: pulse-btn 2.5s ease-in-out infinite;
 
-.pokedex-continue-link:hover {
-  text-decoration: underline;
-}
-
-@include landing-tablet {
-  .landingpage-container {
-    gap: 5rem;
+  &:hover {
+    animation: none;
+    background: $color-white;
+    box-shadow: none;
   }
 
-  .welcome {
-    font-size: 24px;
-  }
-
-  .pokedex-continue-link {
-    font-size: 18px;
-  }
-}
-
-@include landing-desktop {
-  .landingpage-container {
-    gap: 7rem;
-  }
-
-  .welcome {
-    font-size: 30px;
-  }
-
-  .pokedex-continue-link {
-    font-size: 25px;
+  @include landing-tablet {
+    font-size: 0.75rem;
+    padding: 12px 36px;
   }
 }

@@ -57,6 +57,39 @@
   }
 }
 
+/* ── Generation pills ── */
+.gen-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.gen-pill {
+  font-family: inherit;
+  font-size: 0.5rem;
+  padding: 5px 12px;
+  border-radius: 4px;
+  border: 2px solid rgba(255,255,255,0.3);
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+
+  &:hover {
+    border-color: $color-accent-yellow;
+    color: $color-accent-yellow;
+    transform: scale(1.08);
+  }
+
+  &--active {
+    background: $color-accent-yellow;
+    border-color: $color-accent-yellow;
+    color: $color-black;
+    transform: scale(1.08);
+  }
+}
+
 /* ── Type pills ── */
 .type-pills {
   display: flex;

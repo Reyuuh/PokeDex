@@ -43,11 +43,22 @@ export const PokemonList: React.FC = () => {
   }, [state.isLoadingMore]);
 
   // Apply filter + sort client-side to the full loaded list
+  const GEN_RANGES: Record<number, [number, number]> = {
+    1: [1, 151], 2: [152, 251], 3: [252, 386],
+    4: [387, 493], 5: [494, 649], 6: [650, 721],
+    7: [722, 809], 8: [810, 905], 9: [906, 1025],
+  };
+
   const filteredPokemons = useMemo(() => {
     let list = [...state.pokemons];
 
     if (state.filterType) {
       list = list.filter(p => p.types.some(t => t.type.name === state.filterType));
+    }
+
+    if (state.filterGen) {
+      const [min, max] = GEN_RANGES[state.filterGen];
+      list = list.filter(p => p.id >= min && p.id <= max);
     }
 
     switch (state.sortBy) {
@@ -58,7 +69,7 @@ export const PokemonList: React.FC = () => {
     }
 
     return list;
-  }, [state.pokemons, state.filterType, state.sortBy]);
+  }, [state.pokemons, state.filterType, state.filterGen, state.sortBy]);
 
   const isSearchMode = Boolean(state.searchQuery);
   const pokemonsToDisplay = isSearchMode ? state.searchResults : filteredPokemons;
@@ -78,8 +89,10 @@ export const PokemonList: React.FC = () => {
       {!isSearchMode && (
         <FilterBar
           filterType={state.filterType}
+          filterGen={state.filterGen}
           sortBy={state.sortBy}
           onFilterType={(type) => dispatch({ type: "SET_FILTER_TYPE", payload: type })}
+          onFilterGen={(gen) => dispatch({ type: "SET_FILTER_GEN", payload: gen })}
           onSortBy={(sort: SortBy) => dispatch({ type: "SET_SORT_BY", payload: sort })}
         />
       )}

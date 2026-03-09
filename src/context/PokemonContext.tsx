@@ -28,6 +28,8 @@ export const reducer = (state: State, action: Action): State => {
       return { ...state, isSearching: action.payload };
     case "SET_FILTER_TYPE":
       return { ...state, filterType: action.payload };
+    case "SET_FILTER_GEN":
+      return { ...state, filterGen: action.payload };
     case "SET_SORT_BY":
       return { ...state, sortBy: action.payload };
     default:
@@ -47,6 +49,7 @@ const initialState: State = {
   hasMore: true,
   isSearching: false,
   filterType: null,
+  filterGen: null,
   sortBy: 'id-asc',
 };
 
@@ -118,17 +121,24 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
 
   const fetchPokemonDetails = useCallback(async (nameOrId: string | number) => {
     dispatch({ type: "SET_LOADING_DETAILS", payload: true });
+    dispatch({ type: "SET_SELECTED_POKEMON", payload: undefined });
     try {
       const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${nameOrId}`);
+      if (!res.ok) throw new Error(`Pokemon ${nameOrId} not found`);
       const pokemonData = await res.json();
 
       const animatedSprite =
-        pokemonData.sprites.versions["generation-v"]?.["black-white"]?.animated?.front_default || null;
+        pokemonData.sprites.versions?.["generation-v"]?.["black-white"]?.animated?.front_default
+        || pokemonData.sprites.front_default
+        || pokemonData.sprites.other?.["official-artwork"]?.front_default
+        || null;
 
-      const speciesRes = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${nameOrId}`);
+      // Use the species URL from the pokemon data — works correctly for alternate forms
+      const speciesRes = await fetch(pokemonData.species.url);
+      if (!speciesRes.ok) throw new Error(`Species not found`);
       const speciesData = await speciesRes.json();
 
-      const flavorEntry = speciesData.flavor_text_entries.find(
+      const flavorEntry = speciesData.flavor_text_entries?.find(
         (entry: any) => entry.language.name === "en"
       );
 
@@ -145,13 +155,13 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
         types: pokemonData.types,
         abilities: pokemonData.abilities,
         stats: pokemonData.stats,
-        description: flavorEntry?.flavor_text.replace(/\n|\f/g, " "),
-        capture_rate: speciesData.capture_rate,
-        gender_rate: speciesData.gender_rate,
-        egg_groups: speciesData.egg_groups.map((g: { name: string }) => ({ name: g.name })),
-        habitat: speciesData.habitat,
-        growth_rate: speciesData.growth_rate,
-        generation: speciesData.generation,
+        description: flavorEntry?.flavor_text.replace(/\n|\f/g, " ") ?? "No description available.",
+        capture_rate: speciesData.capture_rate ?? 0,
+        gender_rate: speciesData.gender_rate ?? -1,
+        egg_groups: speciesData.egg_groups?.map((g: { name: string }) => ({ name: g.name })) ?? [],
+        habitat: speciesData.habitat ?? null,
+        growth_rate: speciesData.growth_rate ?? { name: "unknown" },
+        generation: speciesData.generation ?? { name: "unknown" },
       };
 
       dispatch({ type: "SET_SELECTED_POKEMON", payload: pokemonDetails });

@@ -5,7 +5,7 @@
    Page shell
 ───────────────────────────── */
 .dex-page {
-  max-width: 860px;
+  max-width: 920px;
   margin: 2rem auto;
   padding: 0 1rem 4rem;
   display: flex;
@@ -17,7 +17,7 @@
   text-align: center;
   padding: 4rem;
   color: $color-white;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 /* ─────────────────────────────
@@ -26,7 +26,7 @@
 .dex-header {
   background-color: $color-primary;
   color: $color-white;
-  padding: 1rem 1.25rem;
+  padding: 1.1rem 1.4rem;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -39,9 +39,9 @@
 .dex-back {
   color: $color-white;
   text-decoration: none;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   border: 2px solid $color-white;
-  padding: 6px 12px;
+  padding: 7px 14px;
   border-radius: 4px;
   white-space: nowrap;
 
@@ -52,13 +52,65 @@
 }
 
 .dex-number {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   opacity: 0.8;
 }
 
 .dex-title {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   flex: 1;
+}
+
+.dex-float-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: $color-accent-yellow;
+  border: 3px solid $color-black;
+  color: $color-black;
+  font-family: inherit;
+  font-size: 0.55rem;
+  padding: 14px 10px;
+  cursor: pointer;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  transition: background 0.15s ease, transform 0.15s ease;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.4);
+
+  &--prev {
+    left: 1rem;
+    border-radius: 0 6px 6px 0;
+    border-left: none;
+  }
+
+  &--next {
+    right: 1rem;
+    border-radius: 6px 0 0 6px;
+    border-right: none;
+  }
+
+  &:hover {
+    background: $color-white;
+    transform: translateY(-50%) scale(1.08);
+  }
+
+  span {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+}
+
+.dex-nav-loading {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 .dex-types {
@@ -67,8 +119,8 @@
 }
 
 .dex-type-badge {
-  font-size: 0.55rem;
-  padding: 5px 12px;
+  font-size: 0.65rem;
+  padding: 6px 14px;
   border-radius: 20px;
   color: $color-white;
   font-weight: bold;
@@ -103,7 +155,7 @@
   @include desktop {
     border-bottom: none;
     border-right: 3px solid $color-black;
-    min-width: 260px;
+    min-width: 270px;
   }
 }
 
@@ -135,34 +187,34 @@
 
 .dex-screen-label {
   margin-top: 0.6rem;
-  font-size: 0.4rem;
+  font-size: 0.45rem;
   color: #6890a0;
   letter-spacing: 0.05em;
 }
 
 /* Quick info panel */
 .dex-quick-info {
-  padding: 1.25rem 1.5rem;
+  padding: 1.4rem 1.6rem;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.4rem;
   flex: 1;
 }
 
 .dex-info-table {
   border-collapse: collapse;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   width: 100%;
 
   td {
-    padding: 6px 10px 6px 0;
+    padding: 7px 10px 7px 0;
   }
 
   td:first-child {
     color: $color-primary;
     font-weight: bold;
     white-space: nowrap;
-    width: 4rem;
+    width: 4.5rem;
   }
 
   td:last-child {
@@ -177,12 +229,12 @@
 .dex-abilities {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 8px;
 }
 
 .dex-ability {
-  font-size: 0.6rem;
-  padding: 6px 10px;
+  font-size: 0.7rem;
+  padding: 7px 12px;
   background: $color-white;
   border: 2px solid $color-black;
   border-radius: 4px;
@@ -197,10 +249,10 @@
 }
 
 .dex-hidden-tag {
-  font-size: 0.45rem;
+  font-size: 0.5rem;
   background: #888;
   color: $color-white;
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: 10px;
 }
 
@@ -208,13 +260,13 @@
    Shared label
 ───────────────────────────── */
 .dex-section-label {
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   color: $color-primary;
   font-weight: bold;
   letter-spacing: 0.08em;
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.75rem;
   border-bottom: 2px solid $color-primary;
-  padding-bottom: 4px;
+  padding-bottom: 5px;
 }
 
 /* ─────────────────────────────
@@ -224,7 +276,7 @@
   border: 3px solid $color-black;
   border-bottom: none;
   background: #1a3a4a;
-  padding: 1.25rem 1.5rem;
+  padding: 1.4rem 1.6rem;
 }
 
 .dex-entry .dex-section-label {
@@ -233,9 +285,9 @@
 }
 
 .dex-flavor {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: #d4f0ff;
-  line-height: 2;
+  line-height: 2.2;
 }
 
 /* ─────────────────────────────
@@ -245,27 +297,27 @@
   border: 3px solid $color-black;
   border-bottom: none;
   background: $color-white;
-  padding: 1.25rem 1.5rem;
+  padding: 1.4rem 1.6rem;
 }
 
 .dex-stat-row {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 9px;
+  gap: 0.85rem;
+  margin-bottom: 11px;
 }
 
 .dex-stat-name {
-  font-size: 0.55rem;
-  width: 4.5rem;
+  font-size: 0.65rem;
+  width: 5rem;
   text-align: right;
   color: #444;
   flex-shrink: 0;
 }
 
 .dex-stat-value {
-  font-size: 0.6rem;
-  width: 2.25rem;
+  font-size: 0.7rem;
+  width: 2.5rem;
   text-align: right;
   font-weight: bold;
   flex-shrink: 0;
@@ -273,7 +325,7 @@
 
 .dex-stat-bar {
   flex: 1;
-  height: 14px;
+  height: 16px;
   background: #e0e0e0;
   border: 2px solid $color-black;
   border-radius: 2px;
@@ -282,6 +334,7 @@
 
 .dex-stat-fill {
   height: 100%;
+  width: 0;
   background-image: repeating-linear-gradient(
     90deg,
     transparent 0px,
@@ -289,7 +342,7 @@
     rgba(0,0,0,0.15) 7px,
     rgba(0,0,0,0.15) 8px
   );
-  transition: width 0.4s ease;
+  animation: stat-grow 0.6s ease forwards;
 }
 
 /* ─────────────────────────────
@@ -307,7 +360,7 @@
 
 .dex-extra-panel {
   flex: 1;
-  padding: 1.25rem 1.5rem;
+  padding: 1.4rem 1.6rem;
   background: #f4f4e8;
 
   &:first-child {
@@ -325,9 +378,9 @@
   justify-content: space-between;
   align-items: baseline;
   gap: 1rem;
-  padding: 6px 0;
+  padding: 8px 0;
   border-bottom: 1px solid rgba(0,0,0,0.08);
-  font-size: 0.55rem;
+  font-size: 0.65rem;
 
   span:first-child {
     color: #666;
@@ -339,4 +392,3 @@
     text-align: right;
   }
 }
-

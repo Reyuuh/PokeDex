@@ -1,0 +1,50 @@
+.pokeballs-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.pokeball {
+  position: absolute;
+  bottom: -120px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  animation: pokeball-rise linear infinite;
+  opacity: 0;
+
+  /* Top half red, bottom half white via background */
+  background: linear-gradient(
+    to bottom,
+    rgba(220, 50, 50, 0.18) 0%,
+    rgba(220, 50, 50, 0.18) 50%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.12) 100%
+  );
+
+  /* Horizontal divider line */
+  &::before {
+    content: '';
+    position: absolute;
+    top: calc(50% - 1.5px);
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Center button circle */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 28%;
+    height: 28%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+  }
+}

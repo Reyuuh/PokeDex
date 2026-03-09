@@ -38,10 +38,16 @@ export const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon, index = 0 }) 
   || pokemon.sprites.front_default
   || pokemon.sprites.other?.["official-artwork"]?.front_default;
 
+  const primaryType = pokemon.types[0]?.type.name;
+  const typeColor = typeColors[primaryType] ?? '#888';
+
     return(
-<li key={pokemon.id} className="sprite-item" style={{ animationDelay: `${(index % 20) * 40}ms` }}>
+<li key={pokemon.id} className="sprite-item" style={{ animationDelay: `${(index % 20) * 25}ms` }}>
    <Link className="sprite-link-full" to={`/pokemon/${pokemon.id}`}>
-      <div className="sprite-container">
+      <div
+        className="sprite-container"
+        style={{ '--type-color': typeColor } as React.CSSProperties}
+      >
         <div className="sprite-name">{pokemon.name}</div>
         <div className="sprite-themselves">
           {animatedSprite ? (

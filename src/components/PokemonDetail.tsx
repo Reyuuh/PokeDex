@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { PokemonContext } from "../context/PokemonContext";
 import '../styles/PokemonDetail.scss'
 
@@ -41,7 +41,12 @@ function formatGeneration(gen: string): string {
 
 export const PokemonDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const { state, fetchPokemonDetails } = useContext(PokemonContext);
+
+  const currentId = Number(id);
+  const prevId = currentId > 1 ? currentId - 1 : null;
+  const nextId = currentId < 1025 ? currentId + 1 : null;
 
   useEffect(() => {
     if (id) fetchPokemonDetails(id);
@@ -49,12 +54,25 @@ export const PokemonDetail: React.FC = () => {
 
   const pokemon = state.selectedPokemon;
 
-  if (!pokemon) return <div className="dex-loading">Loading Pokédex...</div>;
+  if (state.loadingDetails || !pokemon || String(pokemon.id) !== id) {
+    return <div className="dex-loading">Loading Pokédex...</div>;
+  }
 
-  const sprite = pokemon.sprites.animated ?? pokemon.sprites.front_default;
+  const sprite = pokemon.sprites.animated;
   const dexNumber = `#${String(pokemon.id).padStart(3, '0')}`;
 
   return (
+    <>
+      {prevId && (
+        <button className="dex-float-nav dex-float-nav--prev" onClick={() => navigate(`/pokemon/${prevId}`)}>
+          ◀<span>PREV</span>
+        </button>
+      )}
+      {nextId && (
+        <button className="dex-float-nav dex-float-nav--next" onClick={() => navigate(`/pokemon/${nextId}`)}>
+          <span>NEXT</span>▶
+        </button>
+      )}
     <div className="dex-page">
 
       {/* ── Header bar ── */}
@@ -124,11 +142,12 @@ export const PokemonDetail: React.FC = () => {
             <span className="dex-stat-value">{base_stat}</span>
             <div className="dex-stat-bar">
               <div
+                key={`${pokemon.id}-${stat.name}`}
                 className="dex-stat-fill"
                 style={{
-                  width: `${Math.round((base_stat / 255) * 100)}%`,
+                  '--stat-width': `${Math.round((base_stat / 255) * 100)}%`,
                   backgroundColor: getStatColor(base_stat),
-                }}
+                } as React.CSSProperties}
               />
             </div>
           </div>
@@ -154,5 +173,6 @@ export const PokemonDetail: React.FC = () => {
       </div>
 
     </div>
+    </>
   );
 };

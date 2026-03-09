@@ -83,6 +83,7 @@ export interface State {
   hasMore: boolean;
   isSearching: boolean;
   filterType: string | null;
+  filterGen: number | null;
   sortBy: SortBy;
 }
 
@@ -92,10 +93,11 @@ export type Action =
   | { type: "SET_SEARCH"; payload: string }
   | { type: "SET_TOTAL_COUNT"; payload: number }
   | { type: "SET_SEARCH_RESULT"; payload: Pokemon[] }
-  | { type: "SET_SELECTED_POKEMON"; payload: PokemonDetails }
+  | { type: "SET_SELECTED_POKEMON"; payload: PokemonDetails | undefined }
   | { type: "SET_LOADING_DETAILS"; payload: boolean }
   | { type: "SET_LOADING_MORE"; payload: boolean }
   | { type: "SET_HAS_MORE"; payload: boolean }
   | { type: "SET_IS_SEARCHING"; payload: boolean }
   | { type: "SET_FILTER_TYPE"; payload: string | null }
+  | { type: "SET_FILTER_GEN"; payload: number | null }
   | { type: "SET_SORT_BY"; payload: SortBy };

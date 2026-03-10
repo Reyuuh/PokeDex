@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useMemo } from "react";
+import React, { useEffect, useRef, useMemo, useState, useCallback } from "react";
+import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { usePokemon } from "../hooks/usePokemon";
 import { usePokemonSearch } from "../hooks/usePokemonSearch";
 import { SearchBar } from "./SearchBar";
@@ -9,10 +10,28 @@ import '../styles/PokemonList.scss';
 import '../styles/PokemonItem.scss';
 import { Link } from "react-router-dom";
 
+// Card width (15rem) + gap (2rem) in px at 16px base
+const CARD_WIDTH = 240;
+const CARD_GAP   = 32;
+const ROW_HEIGHT = CARD_WIDTH + CARD_GAP; // 272px
+
+function getColumns() {
+  return Math.max(1, Math.floor((window.innerWidth - CARD_GAP) / (CARD_WIDTH + CARD_GAP)));
+}
+
 export const PokemonList: React.FC = () => {
   const { state, dispatch, loadMore, fetchPokemonsForGen } = usePokemon();
   const { searchPokemon } = usePokemonSearch();
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  const [columns, setColumns] = useState(getColumns);
+
+  useEffect(() => {
+    const onResize = () => setColumns(getColumns());
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value;
@@ -31,14 +50,11 @@ export const PokemonList: React.FC = () => {
     return () => observer.disconnect();
   }, [loadMore]);
 
-  // After each batch finishes, check if sentinel is still on-screen and load more if so.
-  // Needed because IntersectionObserver only fires on *changes*, not when already intersecting.
+  // After each batch finishes, check if sentinel is still on-screen
   useEffect(() => {
     if (!state.isLoadingMore && state.hasMore && sentinelRef.current) {
       const rect = sentinelRef.current.getBoundingClientRect();
-      if (rect.top <= window.innerHeight + 200) {
-        loadMore();
-      }
+      if (rect.top <= window.innerHeight + 200) loadMore();
     }
   }, [state.isLoadingMore]);
 
@@ -48,7 +64,6 @@ export const PokemonList: React.FC = () => {
     7: [722, 809], 8: [810, 905], 9: [906, 1025],
   };
 
-  // When a gen filter is selected, fetch that generation's Pokémon from the API
   useEffect(() => {
     if (state.filterGen) {
       const [min, max] = GEN_RANGES[state.filterGen];
@@ -57,7 +72,6 @@ export const PokemonList: React.FC = () => {
   }, [state.filterGen]);
 
   const filteredPokemons = useMemo(() => {
-    // When gen filter is active, use the dedicated genPokemons list
     let list = state.filterGen ? [...state.genPokemons] : [...state.pokemons];
 
     if (state.filterType) {
@@ -76,6 +90,15 @@ export const PokemonList: React.FC = () => {
 
   const isSearchMode = Boolean(state.searchQuery);
   const pokemonsToDisplay = isSearchMode ? state.searchResults : filteredPokemons;
+
+  const rowCount = Math.ceil(pokemonsToDisplay.length / columns);
+
+  const virtualizer = useWindowVirtualizer({
+    count: rowCount,
+    estimateSize: () => ROW_HEIGHT,
+    overscan: 3,
+    scrollMargin: listRef.current?.offsetTop ?? 0,
+  });
 
   return (
     <div className="pokemon-container">
@@ -108,11 +131,32 @@ export const PokemonList: React.FC = () => {
         <p className="list-status list-status--empty">No Pokémon found for "{state.searchQuery}"</p>
       )}
 
-      <ul className="pokemon-creatures">
-        {pokemonsToDisplay.map((pokemon, i) => (
-          <PokemonItem key={pokemon.id} pokemon={pokemon} index={i} />
-        ))}
-      </ul>
+      {/* Virtual list */}
+      <div ref={listRef} className="pokemon-creatures">
+        <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
+          {virtualizer.getVirtualItems().map(virtualRow => {
+            const startIndex = virtualRow.index * columns;
+            const rowItems = pokemonsToDisplay.slice(startIndex, startIndex + columns);
+            return (
+              <div
+                key={virtualRow.key}
+                className="pokemon-row"
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  transform: `translateY(${virtualRow.start - virtualizer.options.scrollMargin}px)`,
+                }}
+              >
+                {rowItems.map((pokemon, i) => (
+                  <PokemonItem key={pokemon.id} pokemon={pokemon} index={startIndex + i} />
+                ))}
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
       {/* Gen filter loading indicator */}
       {!isSearchMode && state.filterGen && state.isLoadingGen && (

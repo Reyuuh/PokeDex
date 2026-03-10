@@ -22,12 +22,14 @@
   padding-top: 0;
   border: 2px solid var(--type-color, #{$color-border});
   border-radius: 10px;
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   background: color-mix(in srgb, var(--type-color, #888) 12%, #d8dce8);
-  height: 13rem;
-  width: 13rem;
+  height: 15rem;
+  width: 15rem;
   position: relative;
   overflow: visible;
+  container-type: inline-size;
+  will-change: transform;
 
   /* Coloured type strip across the top */
   &::before {
@@ -56,6 +58,10 @@
   font-size: 1.2rem;
   text-align: center;
   color: color-mix(in srgb, var(--type-color, #222) 60%, #222);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
 }
 
 .sprite-themselves {
@@ -99,6 +105,16 @@
 .sprite-container:hover .hover-card {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+}
+
+.hover-name {
+  font-weight: bold;
+  font-size: 0.65rem;
+  text-align: center;
+  text-transform: capitalize;
+  color: #222;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  padding-bottom: 4px;
 }
 
 .hover-types {

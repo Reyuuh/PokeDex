@@ -85,6 +85,8 @@ export interface State {
   filterType: string | null;
   filterGen: number | null;
   sortBy: SortBy;
+  genPokemons: Pokemon[];
+  isLoadingGen: boolean;
 }
 
 export type Action =
@@ -100,4 +102,6 @@ export type Action =
   | { type: "SET_IS_SEARCHING"; payload: boolean }
   | { type: "SET_FILTER_TYPE"; payload: string | null }
   | { type: "SET_FILTER_GEN"; payload: number | null }
-  | { type: "SET_SORT_BY"; payload: SortBy };
+  | { type: "SET_SORT_BY"; payload: SortBy }
+  | { type: "SET_GEN_POKEMONS"; payload: Pokemon[] }
+  | { type: "SET_LOADING_GEN"; payload: boolean };

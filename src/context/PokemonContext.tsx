@@ -1,5 +1,6 @@
 import React, { createContext, ReactNode, useEffect, useReducer, useCallback, useRef } from "react";
 import { Pokemon, Action, State, PokemonDetails, SortBy } from "../types/pokemonTypes";
+import { fetchPokemon } from "../cache/pokemonCache";
 
 const ITEMS_PER_PAGE = 20;
 
@@ -30,6 +31,10 @@ export const reducer = (state: State, action: Action): State => {
       return { ...state, filterType: action.payload };
     case "SET_FILTER_GEN":
       return { ...state, filterGen: action.payload };
+    case "SET_GEN_POKEMONS":
+      return { ...state, genPokemons: action.payload };
+    case "SET_LOADING_GEN":
+      return { ...state, isLoadingGen: action.payload };
     case "SET_SORT_BY":
       return { ...state, sortBy: action.payload };
     default:
@@ -51,6 +56,8 @@ const initialState: State = {
   filterType: null,
   filterGen: null,
   sortBy: 'id-asc',
+  genPokemons: [],
+  isLoadingGen: false,
 };
 
 export const PokemonContext = createContext<{
@@ -58,11 +65,13 @@ export const PokemonContext = createContext<{
   dispatch: React.Dispatch<Action>;
   fetchPokemonDetails: (nameOrId: string | number) => Promise<void>;
   loadMore: () => void;
+  fetchPokemonsForGen: (min: number, max: number) => Promise<void>;
 }>({
   state: initialState,
   dispatch: () => {},
   fetchPokemonDetails: async () => {},
   loadMore: () => {},
+  fetchPokemonsForGen: async () => {},
 });
 
 export type { SortBy };
@@ -89,10 +98,7 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
       dispatch({ type: "SET_TOTAL_COUNT", payload: data.count });
 
       const pokemons: Pokemon[] = await Promise.all(
-        data.results.map(async (p: { url: string }) => {
-          const r = await fetch(p.url);
-          return r.json();
-        })
+        data.results.map((p: { url: string }) => fetchPokemon(p.url))
       );
 
       const more = page * ITEMS_PER_PAGE < data.count;
@@ -118,6 +124,25 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
   const loadMore = useCallback(() => {
     fetchPokemons();
   }, [fetchPokemons]);
+
+  const fetchPokemonsForGen = useCallback(async (min: number, max: number) => {
+    dispatch({ type: "SET_LOADING_GEN", payload: true });
+    dispatch({ type: "SET_GEN_POKEMONS", payload: [] });
+    try {
+      const offset = min - 1;
+      const limit = max - min + 1;
+      const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
+      const data = await res.json();
+      const pokemons: Pokemon[] = await Promise.all(
+        data.results.map((p: { url: string }) => fetchPokemon(p.url))
+      );
+      dispatch({ type: "SET_GEN_POKEMONS", payload: pokemons });
+    } catch (error) {
+      console.error("Error fetching gen Pokémon:", error);
+    } finally {
+      dispatch({ type: "SET_LOADING_GEN", payload: false });
+    }
+  }, []);
 
   const fetchPokemonDetails = useCallback(async (nameOrId: string | number) => {
     dispatch({ type: "SET_LOADING_DETAILS", payload: true });
@@ -173,7 +198,7 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
   }, []);
 
   return (
-    <PokemonContext.Provider value={{ state, dispatch, fetchPokemonDetails, loadMore }}>
+    <PokemonContext.Provider value={{ state, dispatch, fetchPokemonDetails, loadMore, fetchPokemonsForGen }}>
       {children}
     </PokemonContext.Provider>
   );

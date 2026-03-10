@@ -7,17 +7,7 @@
   justify-content: center;
   min-height: 100vh;
   padding: 1rem;
-  background: linear-gradient(
-    135deg,
-    #0a1628,
-    #0d2a40,
-    #1a0a3e,
-    #0a2a1a,
-    #0d2a40,
-    #0a1628
-  );
-  background-size: 400% 400%;
-  animation: gradient-shift 18s ease infinite;
+  background: linear-gradient(135deg, #0a1628, #0d2a40, #1a0a3e);
 }
 
 /* ── Panel ── */

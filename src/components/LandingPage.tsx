@@ -23,16 +23,20 @@ export const LandingPage: React.FC = () => {
   const [featured, setFeatured] = useState<FeaturedPokemon | null>(null);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const { signal } = controller;
     const randomId = Math.floor(Math.random() * 1025) + 1;
 
-    fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`)
-      .then(r => r.json())
-      .then(async data => {
+    (async () => {
+      try {
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`, { signal });
+        const data = await res.json();
+
         const artwork =
           data.sprites.other?.["official-artwork"]?.front_default ||
           data.sprites.front_default;
 
-        const speciesRes = await fetch(data.species.url);
+        const speciesRes = await fetch(data.species.url, { signal });
         const speciesData = await speciesRes.json();
 
         const entry = speciesData.flavor_text_entries.find(
@@ -48,8 +52,12 @@ export const LandingPage: React.FC = () => {
             funFact,
           });
         }
-      })
-      .catch(() => {});
+      } catch (e: any) {
+        if (e?.name !== "AbortError") console.error(e);
+      }
+    })();
+
+    return () => controller.abort();
   }, []);
 
   return (

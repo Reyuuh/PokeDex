@@ -81,6 +81,7 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
   const isLoadingRef = useRef(false);
   const nextPageRef = useRef(1);
   const hasMoreRef = useRef(true);
+  const fetchAbortRef = useRef<AbortController | null>(null);
 
   const fetchPokemons = useCallback(async () => {
     if (isLoadingRef.current || !hasMoreRef.current) return;
@@ -88,10 +89,14 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
     isLoadingRef.current = true;
     dispatch({ type: "SET_LOADING_MORE", payload: true });
 
+    const controller = new AbortController();
+    fetchAbortRef.current = controller;
+
     try {
       const page = nextPageRef.current;
       const res = await fetch(
-        `https://pokeapi.co/api/v2/pokemon?limit=${ITEMS_PER_PAGE}&offset=${(page - 1) * ITEMS_PER_PAGE}`
+        `https://pokeapi.co/api/v2/pokemon?limit=${ITEMS_PER_PAGE}&offset=${(page - 1) * ITEMS_PER_PAGE}`,
+        { signal: controller.signal }
       );
       const data = await res.json();
 
@@ -108,8 +113,8 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
 
       nextPageRef.current = page + 1;
       hasMoreRef.current = more;
-    } catch (error) {
-      console.error("Error fetching Pokémon:", error);
+    } catch (error: any) {
+      if (error?.name !== "AbortError") console.error("Error fetching Pokémon:", error);
     } finally {
       isLoadingRef.current = false;
       dispatch({ type: "SET_LOADING_MORE", payload: false });
@@ -119,36 +124,53 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
   // Initial load
   useEffect(() => {
     fetchPokemons();
+    return () => fetchAbortRef.current?.abort();
   }, [fetchPokemons]);
 
   const loadMore = useCallback(() => {
     fetchPokemons();
   }, [fetchPokemons]);
 
+  const genAbortRef = useRef<AbortController | null>(null);
+
   const fetchPokemonsForGen = useCallback(async (min: number, max: number) => {
+    genAbortRef.current?.abort();
+    const controller = new AbortController();
+    genAbortRef.current = controller;
+
     dispatch({ type: "SET_LOADING_GEN", payload: true });
     dispatch({ type: "SET_GEN_POKEMONS", payload: [] });
     try {
       const offset = min - 1;
       const limit = max - min + 1;
-      const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
+      const res = await fetch(
+        `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`,
+        { signal: controller.signal }
+      );
       const data = await res.json();
       const pokemons: Pokemon[] = await Promise.all(
         data.results.map((p: { url: string }) => fetchPokemon(p.url))
       );
       dispatch({ type: "SET_GEN_POKEMONS", payload: pokemons });
-    } catch (error) {
-      console.error("Error fetching gen Pokémon:", error);
+    } catch (error: any) {
+      if (error?.name !== "AbortError") console.error("Error fetching gen Pokémon:", error);
     } finally {
       dispatch({ type: "SET_LOADING_GEN", payload: false });
     }
   }, []);
 
+  const detailsAbortRef = useRef<AbortController | null>(null);
+
   const fetchPokemonDetails = useCallback(async (nameOrId: string | number) => {
+    detailsAbortRef.current?.abort();
+    const controller = new AbortController();
+    detailsAbortRef.current = controller;
+    const { signal } = controller;
+
     dispatch({ type: "SET_LOADING_DETAILS", payload: true });
     dispatch({ type: "SET_SELECTED_POKEMON", payload: undefined });
     try {
-      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${nameOrId}`);
+      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${nameOrId}`, { signal });
       if (!res.ok) throw new Error(`Pokemon ${nameOrId} not found`);
       const pokemonData = await res.json();
 
@@ -158,8 +180,7 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
         || pokemonData.sprites.other?.["official-artwork"]?.front_default
         || null;
 
-      // Use the species URL from the pokemon data — works correctly for alternate forms
-      const speciesRes = await fetch(pokemonData.species.url);
+      const speciesRes = await fetch(pokemonData.species.url, { signal });
       if (!speciesRes.ok) throw new Error(`Species not found`);
       const speciesData = await speciesRes.json();
 
@@ -190,8 +211,8 @@ export const PokemonProvider: React.FC<{ children: ReactNode }> = ({ children })
       };
 
       dispatch({ type: "SET_SELECTED_POKEMON", payload: pokemonDetails });
-    } catch (error) {
-      console.error("Error fetching Pokémon details:", error);
+    } catch (error: any) {
+      if (error?.name !== "AbortError") console.error("Error fetching Pokémon details:", error);
     } finally {
       dispatch({ type: "SET_LOADING_DETAILS", payload: false });
     }

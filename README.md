@@ -42,7 +42,7 @@ A fully-featured Pokédex built with React and TypeScript, powered by the [Poké
 
 **Landing Page**
 
-![Intro](public/images/intro.gif)
+![Intro](public/images/ezgif-6a094796eba4f02d)
 
 **Browsing & Filtering**
 

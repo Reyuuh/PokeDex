@@ -10,7 +10,7 @@ import '../styles/PokemonItem.scss';
 import { Link } from "react-router-dom";
 
 export const PokemonList: React.FC = () => {
-  const { state, dispatch, loadMore } = usePokemon();
+  const { state, dispatch, loadMore, fetchPokemonsForGen } = usePokemon();
   const { searchPokemon } = usePokemonSearch();
   const sentinelRef = useRef<HTMLDivElement>(null);
 
@@ -42,23 +42,26 @@ export const PokemonList: React.FC = () => {
     }
   }, [state.isLoadingMore]);
 
-  // Apply filter + sort client-side to the full loaded list
   const GEN_RANGES: Record<number, [number, number]> = {
     1: [1, 151], 2: [152, 251], 3: [252, 386],
     4: [387, 493], 5: [494, 649], 6: [650, 721],
     7: [722, 809], 8: [810, 905], 9: [906, 1025],
   };
 
+  // When a gen filter is selected, fetch that generation's Pokémon from the API
+  useEffect(() => {
+    if (state.filterGen) {
+      const [min, max] = GEN_RANGES[state.filterGen];
+      fetchPokemonsForGen(min, max);
+    }
+  }, [state.filterGen]);
+
   const filteredPokemons = useMemo(() => {
-    let list = [...state.pokemons];
+    // When gen filter is active, use the dedicated genPokemons list
+    let list = state.filterGen ? [...state.genPokemons] : [...state.pokemons];
 
     if (state.filterType) {
       list = list.filter(p => p.types.some(t => t.type.name === state.filterType));
-    }
-
-    if (state.filterGen) {
-      const [min, max] = GEN_RANGES[state.filterGen];
-      list = list.filter(p => p.id >= min && p.id <= max);
     }
 
     switch (state.sortBy) {
@@ -69,7 +72,7 @@ export const PokemonList: React.FC = () => {
     }
 
     return list;
-  }, [state.pokemons, state.filterType, state.filterGen, state.sortBy]);
+  }, [state.pokemons, state.genPokemons, state.filterType, state.filterGen, state.sortBy]);
 
   const isSearchMode = Boolean(state.searchQuery);
   const pokemonsToDisplay = isSearchMode ? state.searchResults : filteredPokemons;
@@ -111,8 +114,13 @@ export const PokemonList: React.FC = () => {
         ))}
       </ul>
 
-      {/* Sentinel — only active outside search mode */}
-      {!isSearchMode && (
+      {/* Gen filter loading indicator */}
+      {!isSearchMode && state.filterGen && state.isLoadingGen && (
+        <p className="list-status">Loading generation...</p>
+      )}
+
+      {/* Sentinel — only active outside search mode and without gen filter */}
+      {!isSearchMode && !state.filterGen && (
         <div ref={sentinelRef} className="load-sentinel">
           {state.isLoadingMore && <span className="load-spinner">Loading...</span>}
           {!state.hasMore && <span className="load-end">All Pokémon loaded</span>}

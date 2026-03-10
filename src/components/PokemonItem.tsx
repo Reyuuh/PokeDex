@@ -41,6 +41,14 @@ export const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon, index = 0 }) 
   const primaryType = pokemon.types[0]?.type.name;
   const typeColor = typeColors[primaryType] ?? '#888';
 
+  const nameFontSize = (name: string) => {
+    const len = name.length;
+    if (len <= 8)  return '1.2rem';
+    if (len <= 10) return '1rem';
+    if (len <= 12) return '0.85rem';
+    return '0.7rem';
+  };
+
     return(
 <li key={pokemon.id} className="sprite-item" style={{ animationDelay: `${(index % 20) * 25}ms` }}>
    <Link className="sprite-link-full" to={`/pokemon/${pokemon.id}`}>
@@ -48,7 +56,7 @@ export const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon, index = 0 }) 
         className="sprite-container"
         style={{ '--type-color': typeColor } as React.CSSProperties}
       >
-        <div className="sprite-name">{pokemon.name}</div>
+        <div className="sprite-name" style={{ fontSize: nameFontSize(pokemon.name) }}>{pokemon.name}</div>
         <div className="sprite-themselves">
           {animatedSprite ? (
             <img src={animatedSprite} alt={pokemon.name} />
@@ -58,6 +66,7 @@ export const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon, index = 0 }) 
         </div>
 
         <div className="hover-card">
+          <div className="hover-name">{pokemon.name}</div>
           <div className="hover-types">
             {pokemon.types.map(({ type }) => (
               <span

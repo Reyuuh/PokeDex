@@ -11,5 +11,6 @@
   position: absolute;
   image-rendering: pixelated;
   opacity: 0;
-  box-shadow: 0 0 4px 1px var(--glow-color, rgba(255,255,255,0.2));
+  filter: drop-shadow(0 0 3px var(--glow-color, rgba(255,255,255,0.2)));
+  will-change: transform, opacity;
 }

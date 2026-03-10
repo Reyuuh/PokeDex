@@ -1,9 +1,14 @@
+import { useRef } from "react";
 import { usePokemon } from "./usePokemon";
+import { fetchPokemon, fetchAllNames } from "../cache/pokemonCache";
 
 export const usePokemonSearch = () => {
   const { dispatch } = usePokemon();
+  const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const searchPokemon = async (query: string) => {
+  const searchPokemon = (query: string) => {
+    if (debounceTimer.current) clearTimeout(debounceTimer.current);
+
     if (!query) {
       dispatch({ type: "SET_SEARCH_RESULT", payload: [] });
       dispatch({ type: "SET_IS_SEARCHING", payload: false });
@@ -12,35 +17,32 @@ export const usePokemonSearch = () => {
 
     dispatch({ type: "SET_IS_SEARCHING", payload: true });
 
-    try {
-      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${query.toLowerCase()}`);
-      if (res.ok) {
-        const pokemon = await res.json();
-        dispatch({ type: "SET_SEARCH_RESULT", payload: [pokemon] });
-      } else {
-        await filterPokemons(query);
+    debounceTimer.current = setTimeout(async () => {
+      try {
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${query.toLowerCase()}`);
+        if (res.ok) {
+          const pokemon = await res.json();
+          dispatch({ type: "SET_SEARCH_RESULT", payload: [pokemon] });
+        } else {
+          await filterPokemons(query);
+        }
+      } catch (error) {
+        console.error("Error searching Pokémon:", error);
+        dispatch({ type: "SET_SEARCH_RESULT", payload: [] });
+      } finally {
+        dispatch({ type: "SET_IS_SEARCHING", payload: false });
       }
-    } catch (error) {
-      console.error("Error searching Pokémon:", error);
-      dispatch({ type: "SET_SEARCH_RESULT", payload: [] });
-    } finally {
-      dispatch({ type: "SET_IS_SEARCHING", payload: false });
-    }
+    }, 300);
   };
 
   const filterPokemons = async (query: string) => {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1000`);
-    const data = await res.json();
+    // Uses cached name list — only fetched once ever
+    const allNames = await fetchAllNames();
 
-    const filtered = data.results.filter((p: { name: string }) =>
-      p.name.startsWith(query.toLowerCase())
-    );
+    const filtered = allNames.filter(p => p.name.startsWith(query.toLowerCase()));
 
     const pokemons = await Promise.all(
-      filtered.map(async (p: { url: string }) => {
-        const r = await fetch(p.url);
-        return r.json();
-      })
+      filtered.map(p => fetchPokemon(p.url))
     );
 
     dispatch({ type: "SET_SEARCH_RESULT", payload: pokemons });

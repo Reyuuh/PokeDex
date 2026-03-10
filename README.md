@@ -50,7 +50,7 @@ A fully-featured Pokédex built with React and TypeScript, powered by the [Poké
 
 **Pokémon Detail Page**
 
-![Details](public/images/ezgif-66fb707b0bc876.gif)
+![Details](public/images/ezgif-61bf9fefd861aca2.gif)
 
 ---
 

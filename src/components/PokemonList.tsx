@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useMemo, useState, useCallback } from "react";
+import React, { useEffect, useRef, useMemo, useState } from "react";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { usePokemon } from "../hooks/usePokemon";
 import { usePokemonSearch } from "../hooks/usePokemonSearch";

@@ -42,11 +42,11 @@ A fully-featured Pokédex built with React and TypeScript, powered by the [Poké
 
 **Landing Page**
 
-![Intro](public/images/ezgif-6a094796eba4f02d.gif)
+![Intro](public/images/ezgif-61bf9fefd861aca2.gif)
 
 **Browsing & Filtering**
 
-![Pageswitch](public/images/ezgif-6c3c8c9f745844.gif)
+![Pageswitch](public/images/ezgif-6a094796eba4f02d.gif)
 
 **Pokémon Detail Page**
 

@@ -42,7 +42,7 @@ A fully-featured Pokédex built with React and TypeScript, powered by the [Poké
 
 **Landing Page**
 
-![Intro](file:///C:/Users/intir/OneDrive/Skrivbord/Inspelning%202026-09-10%20222129.gif)
+![Intro](public/images/Inspelning%202026-09-10%20222129.gif)
 
 **Browsing & Filtering**
 

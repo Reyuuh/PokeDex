@@ -42,7 +42,7 @@ A fully-featured Pokédex built with React and TypeScript, powered by the [Poké
 
 **Landing Page**
 
-![Intro](public/images/ezgif-69f184ad6ffaf95e.gif)
+![Intro](file:///C:/Users/intir/OneDrive/Skrivbord/Inspelning%202026-09-10%20222129.gif)
 
 **Browsing & Filtering**
 
@@ -50,7 +50,7 @@ A fully-featured Pokédex built with React and TypeScript, powered by the [Poké
 
 **Pokémon Detail Page**
 
-![Details](public/images/ezgif-61bf9fefd861aca2.gif)
+![Details](public/images/3.gif)
 
 ---
 

@@ -1,16 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { PokemonContext } from "../context/PokemonContext";
+import { POKEMON_TYPE_COLORS } from "../constants/typeColors";
 import '../styles/PokemonDetail.scss'
-
-const typeColors: Record<string, string> = {
-  fire:     '#F08030', water:    '#6890F0', grass:    '#78C850',
-  electric: '#F8D030', psychic:  '#F85888', ice:      '#98D8D8',
-  dragon:   '#7038F8', dark:     '#705848', fairy:    '#EE99AC',
-  normal:   '#A8A878', fighting: '#C03028', poison:   '#A040A0',
-  ground:   '#E0C068', flying:   '#A890F0', bug:      '#A8B820',
-  rock:     '#B8A038', ghost:    '#705898', steel:    '#B8B8D0',
-};
 
 const statLabels: Record<string, string> = {
   'hp':              'HP',
@@ -85,7 +77,7 @@ export const PokemonDetail: React.FC = () => {
             <span
               key={type.name}
               className="dex-type-badge"
-              style={{ backgroundColor: typeColors[type.name] ?? '#888' }}
+              style={{ backgroundColor: POKEMON_TYPE_COLORS[type.name] ?? '#888' }}
             >
               {type.name.toUpperCase()}
             </span>

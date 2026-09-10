@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FloatingBalls } from "./FloatingBalls";
+import { DEX_TYPE_COLORS } from "../constants/typeColors";
 import '../styles/LandingPage.scss';
 
 interface FeaturedPokemon {
@@ -9,15 +9,6 @@ interface FeaturedPokemon {
   types: string[];
   funFact: string;
 }
-
-const TYPE_COLORS: Record<string, string> = {
-  fire:     '#FF4500', water:    '#1E90FF', grass:    '#2ECC40',
-  electric: '#FFD700', psychic:  '#FF1493', ice:      '#00CFCF',
-  dragon:   '#5B00FF', dark:     '#3D2B1F', fairy:    '#FF69B4',
-  normal:   '#8A8A6A', fighting: '#CC1100', poison:   '#9B00CC',
-  ground:   '#C8860A', flying:   '#7B68EE', bug:      '#6AAF00',
-  rock:     '#A67C00', ghost:    '#4B0082', steel:    '#708090',
-};
 
 export const LandingPage: React.FC = () => {
   const [featured, setFeatured] = useState<FeaturedPokemon | null>(null);
@@ -61,8 +52,6 @@ export const LandingPage: React.FC = () => {
   }, []);
 
   return (
-    <>
-    <FloatingBalls />
     <div className="landingpage-container">
       <div className="landing-panel">
 
@@ -91,7 +80,7 @@ export const LandingPage: React.FC = () => {
                   <span
                     key={type}
                     className="landing-type-badge"
-                    style={{ backgroundColor: TYPE_COLORS[type] ?? '#888' }}
+                    style={{ backgroundColor: DEX_TYPE_COLORS[type] ?? '#888' }}
                   >
                     {type.toUpperCase()}
                   </span>
@@ -124,6 +113,5 @@ export const LandingPage: React.FC = () => {
 
       </div>
     </div>
-    </>
   );
 };

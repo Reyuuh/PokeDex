@@ -84,8 +84,10 @@
 .hover-card {
   position: absolute;
   bottom: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  transform: translateY(4px);
   width: 160px;
   background: color-mix(in srgb, var(--type-color, #888) 10%, #d8dce8);
   border: 2px solid var(--type-color, rgba(0,0,0,0.15));
@@ -99,17 +101,20 @@
   pointer-events: none;
   transition: opacity 0.2s ease, transform 0.2s ease;
   z-index: 10;
-  font-size: 0.55rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.sprite-container:hover .hover-card {
+.sprite-item:has(.sprite-container:hover) .hover-card {
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
 }
 
 .hover-name {
   font-weight: bold;
-  font-size: 0.65rem;
+  font-size: 14px;
   text-align: center;
   text-transform: capitalize;
   color: #222;
@@ -128,7 +133,7 @@
   padding: 2px 7px;
   border-radius: 20px;
   color: #e8eaf2;
-  font-size: 0.5rem;
+  font-size: 12px;
   text-transform: capitalize;
   font-weight: bold;
   text-shadow: 0 1px 1px rgba(0,0,0,0.3);
@@ -156,7 +161,7 @@
 .hover-label {
   font-weight: bold;
   text-transform: uppercase;
-  font-size: 0.45rem;
+  font-size: 11px;
   color: #777;
   letter-spacing: 0.05em;
 }
@@ -167,4 +172,20 @@
   color: #777;
   border-top: 1px solid rgba(0,0,0,0.08);
   padding-top: 4px;
+}
+
+/* Large screens (1080p+) */
+@media (min-width: 1600px) {
+  .hover-card  { width: 190px; font-size: 14px; }
+  .hover-name  { font-size: 15px; }
+  .type-badge  { font-size: 13px; }
+  .hover-label { font-size: 12px; }
+}
+
+/* Very large / 1440p screens */
+@media (min-width: 2000px) {
+  .hover-card  { width: 220px; font-size: 15px; gap: 0.65rem; }
+  .hover-name  { font-size: 17px; }
+  .type-badge  { font-size: 14px; }
+  .hover-label { font-size: 13px; }
 }
